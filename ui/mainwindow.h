@@ -18,15 +18,35 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_ShowPersonTableButton_clicked();
-
     void on_AddPersonButton_clicked();
 
     void on_DeletePersonButton_clicked();
 
     void on_SavePersonTableButton_clicked();
 
+    void on_MainTabWidget_currentChanged(int index);
+
+    void on_AddBookButton_clicked();
+
+    void on_DeleteBookButton_clicked();
+
+    void on_SaveBookTableButton_clicked();
+
+    void on_actionBeenden_triggered();
+
+    void on_AddCDButton_clicked();
+
+    void on_DeleteCDButton_clicked();
+
+    void on_SaveCDTableButton_clicked();
+
+    void on_actionDefault_Theme_triggered();
+
+    void on_actionDark_Theme_triggered();
+
 private:
     Ui::MainWindow *ui;
+    QStyle *defaultStyle;
+    QPalette defaultPalette;
 };
 #endif // MAINWINDOW_H

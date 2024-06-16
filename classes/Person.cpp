@@ -7,3 +7,7 @@ Person::Person(){
     this->Age = 0;
     this->Phonenumber = "";
 }
+
+void Person::PrintPerson(){
+    qDebug() << "Number:" << Number << ", Name:" << Name << ", Address:" << Address << ", Age:" << Age << ", Phonenumber:" << Phonenumber;
+}

@@ -12,14 +12,13 @@ public:
     int getAge(){return this->Age;}
     QString getPhoneNumber(){return this->Phonenumber;}
 
-    void setNumber(int Nr){this->Number = Nr;}
-    void setName(QString name){this->Name = name;}
-    void setAddress(QString address){this->Address = address;}
-    void setAge(int age){this->Age = age;}
-    void setPhoneNumber(QString phonenr){this->Phonenumber = phonenr;}
+    void setNumber(int NewNr){this->Number = NewNr;}
+    void setName(QString NewName){this->Name = NewName;}
+    void setAddress(QString NewAddress){this->Address = NewAddress;}
+    void setAge(int NewAge){this->Age = NewAge;}
+    void setPhoneNumber(QString NewPhoneNumber){this->Phonenumber = NewPhoneNumber;}
 
-    void PrintPerson(){qDebug() << "Number:" << Number << ", Name:" << Name << ", Address:" << Address
-                 << ", Age:" << Age << ", Phonenumber:" << Phonenumber;}
+    void PrintPerson();
 
 private:
     int Number;

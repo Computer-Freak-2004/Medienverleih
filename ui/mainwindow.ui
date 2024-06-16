@@ -6,19 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
+  </property>
   <property name="windowTitle">
-   <string>Medienverleih 0.3</string>
+   <string>Medienverleih 0.5</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <widget class="QTabWidget" name="MainTabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="AusleiheTab">
        <attribute name="title">
@@ -29,6 +32,144 @@
        <attribute name="title">
         <string>Medien</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QTabWidget" name="MediaTypeTab">
+            <property name="statusTip">
+             <string>Hier können die Bücher bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.</string>
+            </property>
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
+            <widget class="QWidget" name="BookTab">
+             <attribute name="title">
+              <string>Buch</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <item>
+               <widget class="QTableWidget" name="BookTableWidget"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="SaveBookTableButton">
+                <property name="statusTip">
+                 <string>Speichert die aktuelle Bücherliste. Änderungen gehen verloren ohne Speichern!</string>
+                </property>
+                <property name="text">
+                 <string>Bücher speichern</string>
+                </property>
+                <property name="icon">
+                 <iconset theme="document-save">
+                  <normaloff>.</normaloff>.</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QPushButton" name="AddBookButton">
+                  <property name="statusTip">
+                   <string>Fügt ein Buch hinzu.</string>
+                  </property>
+                  <property name="text">
+                   <string>Buch hinzufügen</string>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="list-add">
+                    <normaloff>.</normaloff>.</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="DeleteBookButton">
+                  <property name="statusTip">
+                   <string>Löscht das aktuell ausgewählte Buch.</string>
+                  </property>
+                  <property name="text">
+                   <string>Buch löschen</string>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="list-remove">
+                    <normaloff>.</normaloff>.</iconset>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="CDTab">
+             <attribute name="title">
+              <string>CD</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <item>
+               <widget class="QTableWidget" name="CDTableWidget">
+                <property name="statusTip">
+                 <string>Hier können die CDs bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="SaveCDTableButton">
+                <property name="statusTip">
+                 <string>Speichert die aktuelle CD-Liste. Änderungen gehen verloren ohne Speichern!</string>
+                </property>
+                <property name="text">
+                 <string>CDs speichern</string>
+                </property>
+                <property name="icon">
+                 <iconset theme="document-save">
+                  <normaloff>.</normaloff>.</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_4">
+                <item>
+                 <widget class="QPushButton" name="AddCDButton">
+                  <property name="statusTip">
+                   <string>Fügt eine CD hinzu.</string>
+                  </property>
+                  <property name="text">
+                   <string>CD hinzufügen</string>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="list-add">
+                    <normaloff>.</normaloff>.</iconset>
+                  </property>
+                  <property name="checkable">
+                   <bool>false</bool>
+                  </property>
+                  <property name="autoRepeatDelay">
+                   <number>299</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="DeleteCDButton">
+                  <property name="statusTip">
+                   <string>Löscht die aktuell ausgewählte CD.</string>
+                  </property>
+                  <property name="text">
+                   <string>CD löschen</string>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="list-remove">
+                    <normaloff>.</normaloff>.</iconset>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="PersonenTab">
        <attribute name="title">
@@ -36,19 +177,23 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QTableWidget" name="PersonTableWidget"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="ShowPersonTableButton">
-          <property name="text">
-           <string>Anzeigen</string>
+         <widget class="QTableWidget" name="PersonTableWidget">
+          <property name="statusTip">
+           <string>Hier können die Personen bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="SavePersonTableButton">
+          <property name="statusTip">
+           <string>Speichert die aktuelle Personenliste. Änderungen gehen verloren ohne Speichern!</string>
+          </property>
           <property name="text">
            <string>Personen speichern</string>
+          </property>
+          <property name="icon">
+           <iconset theme="document-save">
+            <normaloff>.</normaloff>.</iconset>
           </property>
          </widget>
         </item>
@@ -56,15 +201,29 @@
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QPushButton" name="AddPersonButton">
+            <property name="statusTip">
+             <string>Fügt eine Person hinzu.</string>
+            </property>
             <property name="text">
              <string>Person hinzufügen</string>
+            </property>
+            <property name="icon">
+             <iconset theme="list-add">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="DeletePersonButton">
+            <property name="statusTip">
+             <string>Löscht die aktuell ausgewählte Person.</string>
+            </property>
             <property name="text">
              <string>Person löschen</string>
+            </property>
+            <property name="icon">
+             <iconset theme="list-remove">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -81,11 +240,14 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>20</height>
+     <width>1280</width>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMedienverleih">
+    <property name="statusTip">
+     <string>Hauptmenü</string>
+    </property>
     <property name="title">
      <string>Medien&amp;verleih</string>
     </property>
@@ -95,12 +257,26 @@
     <addaction name="actionBeenden"/>
    </widget>
    <widget class="QMenu" name="menuHilfe">
+    <property name="statusTip">
+     <string>Hilfemenü</string>
+    </property>
     <property name="title">
      <string>Hilfe</string>
     </property>
     <addaction name="action_ber"/>
    </widget>
+   <widget class="QMenu" name="menuAnsicht">
+    <property name="statusTip">
+     <string>Ansichtsmenü</string>
+    </property>
+    <property name="title">
+     <string>Ansicht</string>
+    </property>
+    <addaction name="actionDefault_Theme"/>
+    <addaction name="actionDark_Theme"/>
+   </widget>
    <addaction name="menuMedienverleih"/>
+   <addaction name="menuAnsicht"/>
    <addaction name="menuHilfe"/>
   </widget>
   <widget class="QStatusBar" name="MainStatusbar"/>
@@ -115,13 +291,48 @@
    </property>
   </action>
   <action name="actionBeenden">
+   <property name="icon">
+    <iconset theme="application-exit">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
    <property name="text">
     <string>&amp;Beenden</string>
+   </property>
+   <property name="statusTip">
+    <string>Beendet das Programm.</string>
    </property>
   </action>
   <action name="action_ber">
    <property name="text">
     <string>&amp;Über...</string>
+   </property>
+   <property name="statusTip">
+    <string>Zeigt einen Dialog mit Information über dieses Programm an.</string>
+   </property>
+  </action>
+  <action name="actionDefault_Theme">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Default Theme</string>
+   </property>
+   <property name="statusTip">
+    <string>Setzt das GUI-Thema auf den Standard zurück.</string>
+   </property>
+  </action>
+  <action name="actionDark_Theme">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>D&amp;ark Theme</string>
+   </property>
+   <property name="statusTip">
+    <string>Setzt das GUI-Thema auf ein dunkles Thema.</string>
    </property>
   </action>
  </widget>
