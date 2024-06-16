@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Medienverleih 0.3</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QTabWidget" name="MainTabWidget">
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="AusleiheTab">
+       <attribute name="title">
+        <string>Ausleihe</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="MedienTab">
+       <attribute name="title">
+        <string>Medien</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="PersonenTab">
+       <attribute name="title">
+        <string>Personen</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QTableWidget" name="PersonTableWidget"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ShowPersonTableButton">
+          <property name="text">
+           <string>Anzeigen</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="SavePersonTableButton">
+          <property name="text">
+           <string>Personen speichern</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="AddPersonButton">
+            <property name="text">
+             <string>Person hinzufügen</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="DeletePersonButton">
+            <property name="text">
+             <string>Person löschen</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMedienverleih">
+    <property name="title">
+     <string>Medien&amp;verleih</string>
+    </property>
+    <addaction name="action_ffnen"/>
+    <addaction name="actionSpeichern"/>
+    <addaction name="separator"/>
+    <addaction name="actionBeenden"/>
+   </widget>
+   <widget class="QMenu" name="menuHilfe">
+    <property name="title">
+     <string>Hilfe</string>
+    </property>
+    <addaction name="action_ber"/>
+   </widget>
+   <addaction name="menuMedienverleih"/>
+   <addaction name="menuHilfe"/>
+  </widget>
+  <widget class="QStatusBar" name="MainStatusbar"/>
+  <action name="action_ffnen">
+   <property name="text">
+    <string>&amp;Öffnen</string>
+   </property>
+  </action>
+  <action name="actionSpeichern">
+   <property name="text">
+    <string>&amp;Speichern</string>
+   </property>
+  </action>
+  <action name="actionBeenden">
+   <property name="text">
+    <string>&amp;Beenden</string>
+   </property>
+  </action>
+  <action name="action_ber">
+   <property name="text">
+    <string>&amp;Über...</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
