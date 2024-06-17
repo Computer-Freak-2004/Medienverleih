@@ -1037,8 +1037,6 @@ release/mainwindow.o: ui/mainwindow.cpp ui/mainwindow.h \
 		../../../mingw64/include/QtWidgets/qdialog.h \
 		../../../mingw64/include/QtWidgets/QStyleFactory \
 		../../../mingw64/include/QtWidgets/qstylefactory.h \
-		../../../mingw64/include/QtWidgets/QActionGroup \
-		../../../mingw64/include/QtWidgets/QStyle \
 		../../../mingw64/include/QtCore/QDebug \
 		../../../mingw64/include/QtCore/QList \
 		classes/Person.h \

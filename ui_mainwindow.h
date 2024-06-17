@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.12
+** Created by: Qt User Interface Compiler version 5.15.14
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -40,6 +40,12 @@ public:
     QVBoxLayout *verticalLayout_2;
     QTabWidget *MainTabWidget;
     QWidget *AusleiheTab;
+    QVBoxLayout *verticalLayout_8;
+    QTableWidget *LendTableWidget;
+    QPushButton *SaveLendTableButton;
+    QHBoxLayout *horizontalLayout_2;
+    QPushButton *AddNewLendButton;
+    QPushButton *DeleteLendButton;
     QWidget *MedienTab;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout;
@@ -108,6 +114,59 @@ public:
         MainTabWidget->setObjectName(QString::fromUtf8("MainTabWidget"));
         AusleiheTab = new QWidget();
         AusleiheTab->setObjectName(QString::fromUtf8("AusleiheTab"));
+        verticalLayout_8 = new QVBoxLayout(AusleiheTab);
+        verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
+        LendTableWidget = new QTableWidget(AusleiheTab);
+        LendTableWidget->setObjectName(QString::fromUtf8("LendTableWidget"));
+        LendTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        LendTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+        verticalLayout_8->addWidget(LendTableWidget);
+
+        SaveLendTableButton = new QPushButton(AusleiheTab);
+        SaveLendTableButton->setObjectName(QString::fromUtf8("SaveLendTableButton"));
+        QIcon icon1;
+        iconThemeName = QString::fromUtf8("document-save");
+        if (QIcon::hasThemeIcon(iconThemeName)) {
+            icon1 = QIcon::fromTheme(iconThemeName);
+        } else {
+            icon1.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
+        }
+        SaveLendTableButton->setIcon(icon1);
+
+        verticalLayout_8->addWidget(SaveLendTableButton);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        AddNewLendButton = new QPushButton(AusleiheTab);
+        AddNewLendButton->setObjectName(QString::fromUtf8("AddNewLendButton"));
+        QIcon icon2;
+        iconThemeName = QString::fromUtf8("list-add");
+        if (QIcon::hasThemeIcon(iconThemeName)) {
+            icon2 = QIcon::fromTheme(iconThemeName);
+        } else {
+            icon2.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
+        }
+        AddNewLendButton->setIcon(icon2);
+
+        horizontalLayout_2->addWidget(AddNewLendButton);
+
+        DeleteLendButton = new QPushButton(AusleiheTab);
+        DeleteLendButton->setObjectName(QString::fromUtf8("DeleteLendButton"));
+        QIcon icon3;
+        iconThemeName = QString::fromUtf8("list-remove");
+        if (QIcon::hasThemeIcon(iconThemeName)) {
+            icon3 = QIcon::fromTheme(iconThemeName);
+        } else {
+            icon3.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
+        }
+        DeleteLendButton->setIcon(icon3);
+
+        horizontalLayout_2->addWidget(DeleteLendButton);
+
+
+        verticalLayout_8->addLayout(horizontalLayout_2);
+
         MainTabWidget->addTab(AusleiheTab, QString());
         MedienTab = new QWidget();
         MedienTab->setObjectName(QString::fromUtf8("MedienTab"));
@@ -128,13 +187,6 @@ public:
 
         SaveBookTableButton = new QPushButton(BookTab);
         SaveBookTableButton->setObjectName(QString::fromUtf8("SaveBookTableButton"));
-        QIcon icon1;
-        iconThemeName = QString::fromUtf8("document-save");
-        if (QIcon::hasThemeIcon(iconThemeName)) {
-            icon1 = QIcon::fromTheme(iconThemeName);
-        } else {
-            icon1.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
-        }
         SaveBookTableButton->setIcon(icon1);
 
         verticalLayout_5->addWidget(SaveBookTableButton);
@@ -143,26 +195,12 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         AddBookButton = new QPushButton(BookTab);
         AddBookButton->setObjectName(QString::fromUtf8("AddBookButton"));
-        QIcon icon2;
-        iconThemeName = QString::fromUtf8("list-add");
-        if (QIcon::hasThemeIcon(iconThemeName)) {
-            icon2 = QIcon::fromTheme(iconThemeName);
-        } else {
-            icon2.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
-        }
         AddBookButton->setIcon(icon2);
 
         horizontalLayout_3->addWidget(AddBookButton);
 
         DeleteBookButton = new QPushButton(BookTab);
         DeleteBookButton->setObjectName(QString::fromUtf8("DeleteBookButton"));
-        QIcon icon3;
-        iconThemeName = QString::fromUtf8("list-remove");
-        if (QIcon::hasThemeIcon(iconThemeName)) {
-            icon3 = QIcon::fromTheme(iconThemeName);
-        } else {
-            icon3.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
-        }
         DeleteBookButton->setIcon(icon3);
 
         horizontalLayout_3->addWidget(DeleteBookButton);
@@ -277,8 +315,8 @@ public:
 
         retranslateUi(MainWindow);
 
-        MainTabWidget->setCurrentIndex(1);
-        MediaTypeTab->setCurrentIndex(0);
+        MainTabWidget->setCurrentIndex(0);
+        MediaTypeTab->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -305,12 +343,24 @@ public:
 #if QT_CONFIG(statustip)
         actionDark_Theme->setStatusTip(QCoreApplication::translate("MainWindow", "Setzt das GUI-Thema auf ein dunkles Thema.", nullptr));
 #endif // QT_CONFIG(statustip)
+#if QT_CONFIG(statustip)
+        SaveLendTableButton->setStatusTip(QCoreApplication::translate("MainWindow", "Speichert die aktuelle Ausleihliste. \303\204nderungen gehen verloren ohne Speichern beim Wechseln von Tabs!", nullptr));
+#endif // QT_CONFIG(statustip)
+        SaveLendTableButton->setText(QCoreApplication::translate("MainWindow", "Ausleihen speichern", nullptr));
+#if QT_CONFIG(statustip)
+        AddNewLendButton->setStatusTip(QCoreApplication::translate("MainWindow", "Erstellt eine neue Ausleihe.", nullptr));
+#endif // QT_CONFIG(statustip)
+        AddNewLendButton->setText(QCoreApplication::translate("MainWindow", "Neue Ausleihe", nullptr));
+#if QT_CONFIG(statustip)
+        DeleteLendButton->setStatusTip(QCoreApplication::translate("MainWindow", "Gibt ein ausgeliehenes Medium zur\303\274ck.", nullptr));
+#endif // QT_CONFIG(statustip)
+        DeleteLendButton->setText(QCoreApplication::translate("MainWindow", "Zur\303\274ckgeben", nullptr));
         MainTabWidget->setTabText(MainTabWidget->indexOf(AusleiheTab), QCoreApplication::translate("MainWindow", "Ausleihe", nullptr));
 #if QT_CONFIG(statustip)
         MediaTypeTab->setStatusTip(QCoreApplication::translate("MainWindow", "Hier k\303\266nnen die B\303\274cher bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.", nullptr));
 #endif // QT_CONFIG(statustip)
 #if QT_CONFIG(statustip)
-        SaveBookTableButton->setStatusTip(QCoreApplication::translate("MainWindow", "Speichert die aktuelle B\303\274cherliste. \303\204nderungen gehen verloren ohne Speichern!", nullptr));
+        SaveBookTableButton->setStatusTip(QCoreApplication::translate("MainWindow", "Speichert die aktuelle B\303\274cherliste. \303\204nderungen gehen verloren ohne Speichern beim Wechseln von Tabs!", nullptr));
 #endif // QT_CONFIG(statustip)
         SaveBookTableButton->setText(QCoreApplication::translate("MainWindow", "B\303\274cher speichern", nullptr));
 #if QT_CONFIG(statustip)
@@ -321,12 +371,12 @@ public:
         DeleteBookButton->setStatusTip(QCoreApplication::translate("MainWindow", "L\303\266scht das aktuell ausgew\303\244hlte Buch.", nullptr));
 #endif // QT_CONFIG(statustip)
         DeleteBookButton->setText(QCoreApplication::translate("MainWindow", "Buch l\303\266schen", nullptr));
-        MediaTypeTab->setTabText(MediaTypeTab->indexOf(BookTab), QCoreApplication::translate("MainWindow", "Buch", nullptr));
+        MediaTypeTab->setTabText(MediaTypeTab->indexOf(BookTab), QCoreApplication::translate("MainWindow", "B\303\274cher", nullptr));
 #if QT_CONFIG(statustip)
         CDTableWidget->setStatusTip(QCoreApplication::translate("MainWindow", "Hier k\303\266nnen die CDs bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.", nullptr));
 #endif // QT_CONFIG(statustip)
 #if QT_CONFIG(statustip)
-        SaveCDTableButton->setStatusTip(QCoreApplication::translate("MainWindow", "Speichert die aktuelle CD-Liste. \303\204nderungen gehen verloren ohne Speichern!", nullptr));
+        SaveCDTableButton->setStatusTip(QCoreApplication::translate("MainWindow", "Speichert die aktuelle CD-Liste. \303\204nderungen gehen verloren ohne Speichern beim Wechseln von Tabs!", nullptr));
 #endif // QT_CONFIG(statustip)
         SaveCDTableButton->setText(QCoreApplication::translate("MainWindow", "CDs speichern", nullptr));
 #if QT_CONFIG(statustip)
@@ -337,13 +387,13 @@ public:
         DeleteCDButton->setStatusTip(QCoreApplication::translate("MainWindow", "L\303\266scht die aktuell ausgew\303\244hlte CD.", nullptr));
 #endif // QT_CONFIG(statustip)
         DeleteCDButton->setText(QCoreApplication::translate("MainWindow", "CD l\303\266schen", nullptr));
-        MediaTypeTab->setTabText(MediaTypeTab->indexOf(CDTab), QCoreApplication::translate("MainWindow", "CD", nullptr));
+        MediaTypeTab->setTabText(MediaTypeTab->indexOf(CDTab), QCoreApplication::translate("MainWindow", "CDs", nullptr));
         MainTabWidget->setTabText(MainTabWidget->indexOf(MedienTab), QCoreApplication::translate("MainWindow", "Medien", nullptr));
 #if QT_CONFIG(statustip)
         PersonTableWidget->setStatusTip(QCoreApplication::translate("MainWindow", "Hier k\303\266nnen die Personen bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.", nullptr));
 #endif // QT_CONFIG(statustip)
 #if QT_CONFIG(statustip)
-        SavePersonTableButton->setStatusTip(QCoreApplication::translate("MainWindow", "Speichert die aktuelle Personenliste. \303\204nderungen gehen verloren ohne Speichern!", nullptr));
+        SavePersonTableButton->setStatusTip(QCoreApplication::translate("MainWindow", "Speichert die aktuelle Personenliste. \303\204nderungen gehen verloren ohne Speichern beim Wechseln von Tabs!", nullptr));
 #endif // QT_CONFIG(statustip)
         SavePersonTableButton->setText(QCoreApplication::translate("MainWindow", "Personen speichern", nullptr));
 #if QT_CONFIG(statustip)

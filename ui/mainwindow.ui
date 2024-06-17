@@ -21,12 +21,70 @@
     <item>
      <widget class="QTabWidget" name="MainTabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="AusleiheTab">
        <attribute name="title">
         <string>Ausleihe</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <widget class="QTableWidget" name="LendTableWidget">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="SaveLendTableButton">
+          <property name="statusTip">
+           <string>Speichert die aktuelle Ausleihliste. Änderungen gehen verloren ohne Speichern beim Wechseln von Tabs!</string>
+          </property>
+          <property name="text">
+           <string>Ausleihen speichern</string>
+          </property>
+          <property name="icon">
+           <iconset theme="document-save">
+            <normaloff>.</normaloff>.</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="AddNewLendButton">
+            <property name="statusTip">
+             <string>Erstellt eine neue Ausleihe.</string>
+            </property>
+            <property name="text">
+             <string>Neue Ausleihe</string>
+            </property>
+            <property name="icon">
+             <iconset theme="list-add">
+              <normaloff>.</normaloff>.</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="DeleteLendButton">
+            <property name="statusTip">
+             <string>Gibt ein ausgeliehenes Medium zurück.</string>
+            </property>
+            <property name="text">
+             <string>Zurückgeben</string>
+            </property>
+            <property name="icon">
+             <iconset theme="list-remove">
+              <normaloff>.</normaloff>.</iconset>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="MedienTab">
        <attribute name="title">
@@ -41,11 +99,11 @@
              <string>Hier können die Bücher bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.</string>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="BookTab">
              <attribute name="title">
-              <string>Buch</string>
+              <string>Bücher</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>
@@ -54,7 +112,7 @@
               <item>
                <widget class="QPushButton" name="SaveBookTableButton">
                 <property name="statusTip">
-                 <string>Speichert die aktuelle Bücherliste. Änderungen gehen verloren ohne Speichern!</string>
+                 <string>Speichert die aktuelle Bücherliste. Änderungen gehen verloren ohne Speichern beim Wechseln von Tabs!</string>
                 </property>
                 <property name="text">
                  <string>Bücher speichern</string>
@@ -101,7 +159,7 @@
             </widget>
             <widget class="QWidget" name="CDTab">
              <attribute name="title">
-              <string>CD</string>
+              <string>CDs</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_6">
               <item>
@@ -114,7 +172,7 @@
               <item>
                <widget class="QPushButton" name="SaveCDTableButton">
                 <property name="statusTip">
-                 <string>Speichert die aktuelle CD-Liste. Änderungen gehen verloren ohne Speichern!</string>
+                 <string>Speichert die aktuelle CD-Liste. Änderungen gehen verloren ohne Speichern beim Wechseln von Tabs!</string>
                 </property>
                 <property name="text">
                  <string>CDs speichern</string>
@@ -186,7 +244,7 @@
         <item>
          <widget class="QPushButton" name="SavePersonTableButton">
           <property name="statusTip">
-           <string>Speichert die aktuelle Personenliste. Änderungen gehen verloren ohne Speichern!</string>
+           <string>Speichert die aktuelle Personenliste. Änderungen gehen verloren ohne Speichern beim Wechseln von Tabs!</string>
           </property>
           <property name="text">
            <string>Personen speichern</string>

@@ -6,12 +6,21 @@
 #include "classes/Person.h"
 #include "classes/Book.h"
 #include "classes/CD.h"
+#include "classes/Lend.h"
 
 QList<Person> PersonList;
 QList<Book> BookList;
 QList<CD> CDList;
+QList<Lend> LendList;
 
-QString Ver = "0.5";
+// Variablen werden für Auswahl im AddLendDialog genutzt
+int PersonRow = -1;
+
+int MediaType = 0; //0= Book, 1=CD
+int BookRow =-1;
+int CDRow = -1;
+
+QString Ver = "0.7";
 
 int main(int argc, char *argv[]){
     QApplication a(argc, argv);

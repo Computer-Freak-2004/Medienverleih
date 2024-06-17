@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "addlenddialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,31 +19,33 @@ public:
     ~MainWindow();
 
 private slots:
+    void on_AddNewLendButton_clicked();
+    void acceptSlot();
+    void rejectSlot();
+    void on_DeleteLendButton_clicked();
+    void on_SaveLendTableButton_clicked();
+
     void on_AddPersonButton_clicked();
-
     void on_DeletePersonButton_clicked();
-
     void on_SavePersonTableButton_clicked();
+
+    void on_AddBookButton_clicked();
+    void on_DeleteBookButton_clicked();
+    void on_SaveBookTableButton_clicked();
+
+    void on_AddCDButton_clicked();
+    void on_DeleteCDButton_clicked();
+    void on_SaveCDTableButton_clicked();
 
     void on_MainTabWidget_currentChanged(int index);
 
-    void on_AddBookButton_clicked();
-
-    void on_DeleteBookButton_clicked();
-
-    void on_SaveBookTableButton_clicked();
-
     void on_actionBeenden_triggered();
-
-    void on_AddCDButton_clicked();
-
-    void on_DeleteCDButton_clicked();
-
-    void on_SaveCDTableButton_clicked();
 
     void on_actionDefault_Theme_triggered();
 
     void on_actionDark_Theme_triggered();
+
+    void on_action_ber_triggered();
 
 private:
     Ui::MainWindow *ui;

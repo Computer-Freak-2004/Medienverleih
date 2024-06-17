@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -33,10 +34,17 @@ public:
     QAction *actionSpeichern;
     QAction *actionBeenden;
     QAction *action_ber;
+    QAction *actionDefault_Theme;
+    QAction *actionDark_Theme;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_2;
     QTabWidget *MainTabWidget;
     QWidget *AusleiheTab;
+    QVBoxLayout *verticalLayout_8;
+    QTableWidget *LendTableWidget;
+    QPushButton *SaveLendTableButton;
+    QHBoxLayout *horizontalLayout_2;
+    QPushButton *AddNewLendButton;
     QWidget *MedienTab;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout;
@@ -48,7 +56,13 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QPushButton *AddBookButton;
     QPushButton *DeleteBookButton;
-    QWidget *AudiobookTab;
+    QWidget *CDTab;
+    QVBoxLayout *verticalLayout_6;
+    QTableWidget *CDTableWidget;
+    QPushButton *SaveCDTableButton;
+    QHBoxLayout *horizontalLayout_4;
+    QPushButton *AddCDButton;
+    QPushButton *DeleteCDButton;
     QWidget *PersonenTab;
     QVBoxLayout *verticalLayout_3;
     QTableWidget *PersonTableWidget;
@@ -59,13 +73,14 @@ public:
     QMenuBar *menubar;
     QMenu *menuMedienverleih;
     QMenu *menuHilfe;
+    QMenu *menuAnsicht;
     QStatusBar *MainStatusbar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(800, 600);
+        MainWindow->resize(1280, 720);
         MainWindow->setCursor(QCursor(Qt::ArrowCursor));
         action_ffnen = new QAction(MainWindow);
         action_ffnen->setObjectName("action_ffnen");
@@ -73,8 +88,17 @@ public:
         actionSpeichern->setObjectName("actionSpeichern");
         actionBeenden = new QAction(MainWindow);
         actionBeenden->setObjectName("actionBeenden");
+        QIcon icon(QIcon::fromTheme(QString::fromUtf8("application-exit")));
+        actionBeenden->setIcon(icon);
         action_ber = new QAction(MainWindow);
         action_ber->setObjectName("action_ber");
+        actionDefault_Theme = new QAction(MainWindow);
+        actionDefault_Theme->setObjectName("actionDefault_Theme");
+        actionDefault_Theme->setCheckable(true);
+        actionDefault_Theme->setChecked(true);
+        actionDark_Theme = new QAction(MainWindow);
+        actionDark_Theme->setObjectName("actionDark_Theme");
+        actionDark_Theme->setCheckable(true);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         verticalLayout_2 = new QVBoxLayout(centralwidget);
@@ -83,6 +107,28 @@ public:
         MainTabWidget->setObjectName("MainTabWidget");
         AusleiheTab = new QWidget();
         AusleiheTab->setObjectName("AusleiheTab");
+        verticalLayout_8 = new QVBoxLayout(AusleiheTab);
+        verticalLayout_8->setObjectName("verticalLayout_8");
+        LendTableWidget = new QTableWidget(AusleiheTab);
+        LendTableWidget->setObjectName("LendTableWidget");
+
+        verticalLayout_8->addWidget(LendTableWidget);
+
+        SaveLendTableButton = new QPushButton(AusleiheTab);
+        SaveLendTableButton->setObjectName("SaveLendTableButton");
+
+        verticalLayout_8->addWidget(SaveLendTableButton);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName("horizontalLayout_2");
+        AddNewLendButton = new QPushButton(AusleiheTab);
+        AddNewLendButton->setObjectName("AddNewLendButton");
+
+        horizontalLayout_2->addWidget(AddNewLendButton);
+
+
+        verticalLayout_8->addLayout(horizontalLayout_2);
+
         MainTabWidget->addTab(AusleiheTab, QString());
         MedienTab = new QWidget();
         MedienTab->setObjectName("MedienTab");
@@ -103,6 +149,8 @@ public:
 
         SaveBookTableButton = new QPushButton(BookTab);
         SaveBookTableButton->setObjectName("SaveBookTableButton");
+        QIcon icon1(QIcon::fromTheme(QString::fromUtf8("document-save")));
+        SaveBookTableButton->setIcon(icon1);
 
         verticalLayout_5->addWidget(SaveBookTableButton);
 
@@ -110,11 +158,15 @@ public:
         horizontalLayout_3->setObjectName("horizontalLayout_3");
         AddBookButton = new QPushButton(BookTab);
         AddBookButton->setObjectName("AddBookButton");
+        QIcon icon2(QIcon::fromTheme(QString::fromUtf8("list-add")));
+        AddBookButton->setIcon(icon2);
 
         horizontalLayout_3->addWidget(AddBookButton);
 
         DeleteBookButton = new QPushButton(BookTab);
         DeleteBookButton->setObjectName("DeleteBookButton");
+        QIcon icon3(QIcon::fromTheme(QString::fromUtf8("list-remove")));
+        DeleteBookButton->setIcon(icon3);
 
         horizontalLayout_3->addWidget(DeleteBookButton);
 
@@ -122,9 +174,41 @@ public:
         verticalLayout_5->addLayout(horizontalLayout_3);
 
         MediaTypeTab->addTab(BookTab, QString());
-        AudiobookTab = new QWidget();
-        AudiobookTab->setObjectName("AudiobookTab");
-        MediaTypeTab->addTab(AudiobookTab, QString());
+        CDTab = new QWidget();
+        CDTab->setObjectName("CDTab");
+        verticalLayout_6 = new QVBoxLayout(CDTab);
+        verticalLayout_6->setObjectName("verticalLayout_6");
+        CDTableWidget = new QTableWidget(CDTab);
+        CDTableWidget->setObjectName("CDTableWidget");
+
+        verticalLayout_6->addWidget(CDTableWidget);
+
+        SaveCDTableButton = new QPushButton(CDTab);
+        SaveCDTableButton->setObjectName("SaveCDTableButton");
+        SaveCDTableButton->setIcon(icon1);
+
+        verticalLayout_6->addWidget(SaveCDTableButton);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName("horizontalLayout_4");
+        AddCDButton = new QPushButton(CDTab);
+        AddCDButton->setObjectName("AddCDButton");
+        AddCDButton->setIcon(icon2);
+        AddCDButton->setCheckable(false);
+        AddCDButton->setAutoRepeatDelay(299);
+
+        horizontalLayout_4->addWidget(AddCDButton);
+
+        DeleteCDButton = new QPushButton(CDTab);
+        DeleteCDButton->setObjectName("DeleteCDButton");
+        DeleteCDButton->setIcon(icon3);
+
+        horizontalLayout_4->addWidget(DeleteCDButton);
+
+
+        verticalLayout_6->addLayout(horizontalLayout_4);
+
+        MediaTypeTab->addTab(CDTab, QString());
 
         verticalLayout->addWidget(MediaTypeTab);
 
@@ -143,6 +227,7 @@ public:
 
         SavePersonTableButton = new QPushButton(PersonenTab);
         SavePersonTableButton->setObjectName("SavePersonTableButton");
+        SavePersonTableButton->setIcon(icon1);
 
         verticalLayout_3->addWidget(SavePersonTableButton);
 
@@ -150,11 +235,13 @@ public:
         horizontalLayout->setObjectName("horizontalLayout");
         AddPersonButton = new QPushButton(PersonenTab);
         AddPersonButton->setObjectName("AddPersonButton");
+        AddPersonButton->setIcon(icon2);
 
         horizontalLayout->addWidget(AddPersonButton);
 
         DeletePersonButton = new QPushButton(PersonenTab);
         DeletePersonButton->setObjectName("DeletePersonButton");
+        DeletePersonButton->setIcon(icon3);
 
         horizontalLayout->addWidget(DeletePersonButton);
 
@@ -168,27 +255,32 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 30));
+        menubar->setGeometry(QRect(0, 0, 1280, 20));
         menuMedienverleih = new QMenu(menubar);
         menuMedienverleih->setObjectName("menuMedienverleih");
         menuHilfe = new QMenu(menubar);
         menuHilfe->setObjectName("menuHilfe");
+        menuAnsicht = new QMenu(menubar);
+        menuAnsicht->setObjectName("menuAnsicht");
         MainWindow->setMenuBar(menubar);
         MainStatusbar = new QStatusBar(MainWindow);
         MainStatusbar->setObjectName("MainStatusbar");
         MainWindow->setStatusBar(MainStatusbar);
 
         menubar->addAction(menuMedienverleih->menuAction());
+        menubar->addAction(menuAnsicht->menuAction());
         menubar->addAction(menuHilfe->menuAction());
         menuMedienverleih->addAction(action_ffnen);
         menuMedienverleih->addAction(actionSpeichern);
         menuMedienverleih->addSeparator();
         menuMedienverleih->addAction(actionBeenden);
         menuHilfe->addAction(action_ber);
+        menuAnsicht->addAction(actionDefault_Theme);
+        menuAnsicht->addAction(actionDark_Theme);
 
         retranslateUi(MainWindow);
 
-        MainTabWidget->setCurrentIndex(1);
+        MainTabWidget->setCurrentIndex(0);
         MediaTypeTab->setCurrentIndex(0);
 
 
@@ -201,20 +293,85 @@ public:
         action_ffnen->setText(QCoreApplication::translate("MainWindow", "&\303\226ffnen", nullptr));
         actionSpeichern->setText(QCoreApplication::translate("MainWindow", "&Speichern", nullptr));
         actionBeenden->setText(QCoreApplication::translate("MainWindow", "&Beenden", nullptr));
+#if QT_CONFIG(statustip)
+        actionBeenden->setStatusTip(QCoreApplication::translate("MainWindow", "Beendet das Programm.", nullptr));
+#endif // QT_CONFIG(statustip)
         action_ber->setText(QCoreApplication::translate("MainWindow", "&\303\234ber...", nullptr));
+#if QT_CONFIG(statustip)
+        action_ber->setStatusTip(QCoreApplication::translate("MainWindow", "Zeigt einen Dialog mit Information \303\274ber dieses Programm an.", nullptr));
+#endif // QT_CONFIG(statustip)
+        actionDefault_Theme->setText(QCoreApplication::translate("MainWindow", "&Default Theme", nullptr));
+#if QT_CONFIG(statustip)
+        actionDefault_Theme->setStatusTip(QCoreApplication::translate("MainWindow", "Setzt das GUI-Thema auf den Standard zur\303\274ck.", nullptr));
+#endif // QT_CONFIG(statustip)
+        actionDark_Theme->setText(QCoreApplication::translate("MainWindow", "D&ark Theme", nullptr));
+#if QT_CONFIG(statustip)
+        actionDark_Theme->setStatusTip(QCoreApplication::translate("MainWindow", "Setzt das GUI-Thema auf ein dunkles Thema.", nullptr));
+#endif // QT_CONFIG(statustip)
+        SaveLendTableButton->setText(QCoreApplication::translate("MainWindow", "Ausleihen speichern", nullptr));
+        AddNewLendButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         MainTabWidget->setTabText(MainTabWidget->indexOf(AusleiheTab), QCoreApplication::translate("MainWindow", "Ausleihe", nullptr));
+#if QT_CONFIG(statustip)
+        MediaTypeTab->setStatusTip(QCoreApplication::translate("MainWindow", "Hier k\303\266nnen die B\303\274cher bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.", nullptr));
+#endif // QT_CONFIG(statustip)
+#if QT_CONFIG(statustip)
+        SaveBookTableButton->setStatusTip(QCoreApplication::translate("MainWindow", "Speichert die aktuelle B\303\274cherliste. \303\204nderungen gehen verloren ohne Speichern!", nullptr));
+#endif // QT_CONFIG(statustip)
         SaveBookTableButton->setText(QCoreApplication::translate("MainWindow", "B\303\274cher speichern", nullptr));
+#if QT_CONFIG(statustip)
+        AddBookButton->setStatusTip(QCoreApplication::translate("MainWindow", "F\303\274gt ein Buch hinzu.", nullptr));
+#endif // QT_CONFIG(statustip)
         AddBookButton->setText(QCoreApplication::translate("MainWindow", "Buch hinzuf\303\274gen", nullptr));
+#if QT_CONFIG(statustip)
+        DeleteBookButton->setStatusTip(QCoreApplication::translate("MainWindow", "L\303\266scht das aktuell ausgew\303\244hlte Buch.", nullptr));
+#endif // QT_CONFIG(statustip)
         DeleteBookButton->setText(QCoreApplication::translate("MainWindow", "Buch l\303\266schen", nullptr));
-        MediaTypeTab->setTabText(MediaTypeTab->indexOf(BookTab), QCoreApplication::translate("MainWindow", "Buch", nullptr));
-        MediaTypeTab->setTabText(MediaTypeTab->indexOf(AudiobookTab), QCoreApplication::translate("MainWindow", "H\303\266rbuch", nullptr));
+        MediaTypeTab->setTabText(MediaTypeTab->indexOf(BookTab), QCoreApplication::translate("MainWindow", "B\303\274cher", nullptr));
+#if QT_CONFIG(statustip)
+        CDTableWidget->setStatusTip(QCoreApplication::translate("MainWindow", "Hier k\303\266nnen die CDs bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.", nullptr));
+#endif // QT_CONFIG(statustip)
+#if QT_CONFIG(statustip)
+        SaveCDTableButton->setStatusTip(QCoreApplication::translate("MainWindow", "Speichert die aktuelle CD-Liste. \303\204nderungen gehen verloren ohne Speichern!", nullptr));
+#endif // QT_CONFIG(statustip)
+        SaveCDTableButton->setText(QCoreApplication::translate("MainWindow", "CDs speichern", nullptr));
+#if QT_CONFIG(statustip)
+        AddCDButton->setStatusTip(QCoreApplication::translate("MainWindow", "F\303\274gt eine CD hinzu.", nullptr));
+#endif // QT_CONFIG(statustip)
+        AddCDButton->setText(QCoreApplication::translate("MainWindow", "CD hinzuf\303\274gen", nullptr));
+#if QT_CONFIG(statustip)
+        DeleteCDButton->setStatusTip(QCoreApplication::translate("MainWindow", "L\303\266scht die aktuell ausgew\303\244hlte CD.", nullptr));
+#endif // QT_CONFIG(statustip)
+        DeleteCDButton->setText(QCoreApplication::translate("MainWindow", "CD l\303\266schen", nullptr));
+        MediaTypeTab->setTabText(MediaTypeTab->indexOf(CDTab), QCoreApplication::translate("MainWindow", "CDs", nullptr));
         MainTabWidget->setTabText(MainTabWidget->indexOf(MedienTab), QCoreApplication::translate("MainWindow", "Medien", nullptr));
+#if QT_CONFIG(statustip)
+        PersonTableWidget->setStatusTip(QCoreApplication::translate("MainWindow", "Hier k\303\266nnen die Personen bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.", nullptr));
+#endif // QT_CONFIG(statustip)
+#if QT_CONFIG(statustip)
+        SavePersonTableButton->setStatusTip(QCoreApplication::translate("MainWindow", "Speichert die aktuelle Personenliste. \303\204nderungen gehen verloren ohne Speichern!", nullptr));
+#endif // QT_CONFIG(statustip)
         SavePersonTableButton->setText(QCoreApplication::translate("MainWindow", "Personen speichern", nullptr));
+#if QT_CONFIG(statustip)
+        AddPersonButton->setStatusTip(QCoreApplication::translate("MainWindow", "F\303\274gt eine Person hinzu.", nullptr));
+#endif // QT_CONFIG(statustip)
         AddPersonButton->setText(QCoreApplication::translate("MainWindow", "Person hinzuf\303\274gen", nullptr));
+#if QT_CONFIG(statustip)
+        DeletePersonButton->setStatusTip(QCoreApplication::translate("MainWindow", "L\303\266scht die aktuell ausgew\303\244hlte Person.", nullptr));
+#endif // QT_CONFIG(statustip)
         DeletePersonButton->setText(QCoreApplication::translate("MainWindow", "Person l\303\266schen", nullptr));
         MainTabWidget->setTabText(MainTabWidget->indexOf(PersonenTab), QCoreApplication::translate("MainWindow", "Personen", nullptr));
+#if QT_CONFIG(statustip)
+        menuMedienverleih->setStatusTip(QCoreApplication::translate("MainWindow", "Hauptmen\303\274", nullptr));
+#endif // QT_CONFIG(statustip)
         menuMedienverleih->setTitle(QCoreApplication::translate("MainWindow", "Medien&verleih", nullptr));
+#if QT_CONFIG(statustip)
+        menuHilfe->setStatusTip(QCoreApplication::translate("MainWindow", "Hilfemen\303\274", nullptr));
+#endif // QT_CONFIG(statustip)
         menuHilfe->setTitle(QCoreApplication::translate("MainWindow", "Hilfe", nullptr));
+#if QT_CONFIG(statustip)
+        menuAnsicht->setStatusTip(QCoreApplication::translate("MainWindow", "Ansichtsmen\303\274", nullptr));
+#endif // QT_CONFIG(statustip)
+        menuAnsicht->setTitle(QCoreApplication::translate("MainWindow", "Ansicht", nullptr));
     } // retranslateUi
 
 };
