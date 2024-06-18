@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Erstelle das Qt-Projekt
-qmake -project
+qmake -project "CONFIG+=debug"
 
-# Füge 'QT += widgets' zur .pro-Datei hinzu (an der 8. Zeile)
-sed -i '8i\QT += widgets' Medienverleih_0-7.pro
+# 'QT += widgets' hinzufügen
+sed -i '8i\QT += widgets' Medienverleih_0-8.pro
 
-# Konfiguriere qmake für den Debug-Modus
-qmake Medienverleih_0-7.pro "CONFIG+=debug"
+# Konfiguriere qmake
+qmake Medienverleih_0-8.pro "CONFIG+=debug"
 
 # Kompiliere das Projekt
 make

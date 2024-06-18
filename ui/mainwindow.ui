@@ -14,7 +14,11 @@
    <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
-   <string>Medienverleih 0.5</string>
+   <string>Medienverleih</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon_32.png</normaloff>icon_32.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -31,10 +35,13 @@
         <item>
          <widget class="QTableWidget" name="LendTableWidget">
           <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
+           <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
           </property>
           <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectRows</enum>
+           <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
           </property>
          </widget>
         </item>
@@ -47,8 +54,7 @@
            <string>Ausleihen speichern</string>
           </property>
           <property name="icon">
-           <iconset theme="document-save">
-            <normaloff>.</normaloff>.</iconset>
+           <iconset theme="document-save"/>
           </property>
          </widget>
         </item>
@@ -63,8 +69,7 @@
              <string>Neue Ausleihe</string>
             </property>
             <property name="icon">
-             <iconset theme="list-add">
-              <normaloff>.</normaloff>.</iconset>
+             <iconset theme="list-add"/>
             </property>
            </widget>
           </item>
@@ -77,8 +82,7 @@
              <string>Zurückgeben</string>
             </property>
             <property name="icon">
-             <iconset theme="list-remove">
-              <normaloff>.</normaloff>.</iconset>
+             <iconset theme="list-remove"/>
             </property>
            </widget>
           </item>
@@ -99,7 +103,7 @@
              <string>Hier können die Bücher bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.</string>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="BookTab">
              <attribute name="title">
@@ -107,7 +111,11 @@
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>
-               <widget class="QTableWidget" name="BookTableWidget"/>
+               <widget class="QTableWidget" name="BookTableWidget">
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QPushButton" name="SaveBookTableButton">
@@ -118,8 +126,7 @@
                  <string>Bücher speichern</string>
                 </property>
                 <property name="icon">
-                 <iconset theme="document-save">
-                  <normaloff>.</normaloff>.</iconset>
+                 <iconset theme="document-save"/>
                 </property>
                </widget>
               </item>
@@ -134,8 +141,7 @@
                    <string>Buch hinzufügen</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-add">
-                    <normaloff>.</normaloff>.</iconset>
+                   <iconset theme="list-add"/>
                   </property>
                  </widget>
                 </item>
@@ -148,8 +154,7 @@
                    <string>Buch löschen</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-remove">
-                    <normaloff>.</normaloff>.</iconset>
+                   <iconset theme="list-remove"/>
                   </property>
                  </widget>
                 </item>
@@ -167,6 +172,9 @@
                 <property name="statusTip">
                  <string>Hier können die CDs bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.</string>
                 </property>
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
                </widget>
               </item>
               <item>
@@ -178,8 +186,7 @@
                  <string>CDs speichern</string>
                 </property>
                 <property name="icon">
-                 <iconset theme="document-save">
-                  <normaloff>.</normaloff>.</iconset>
+                 <iconset theme="document-save"/>
                 </property>
                </widget>
               </item>
@@ -194,8 +201,7 @@
                    <string>CD hinzufügen</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-add">
-                    <normaloff>.</normaloff>.</iconset>
+                   <iconset theme="list-add"/>
                   </property>
                   <property name="checkable">
                    <bool>false</bool>
@@ -214,8 +220,7 @@
                    <string>CD löschen</string>
                   </property>
                   <property name="icon">
-                   <iconset theme="list-remove">
-                    <normaloff>.</normaloff>.</iconset>
+                   <iconset theme="list-remove"/>
                   </property>
                  </widget>
                 </item>
@@ -239,6 +244,9 @@
           <property name="statusTip">
            <string>Hier können die Personen bearbeitet werden. Doppelklick auf eine Zelle zum Bearbeiten.</string>
           </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item>
@@ -250,8 +258,7 @@
            <string>Personen speichern</string>
           </property>
           <property name="icon">
-           <iconset theme="document-save">
-            <normaloff>.</normaloff>.</iconset>
+           <iconset theme="document-save"/>
           </property>
          </widget>
         </item>
@@ -266,8 +273,7 @@
              <string>Person hinzufügen</string>
             </property>
             <property name="icon">
-             <iconset theme="list-add">
-              <normaloff>.</normaloff>.</iconset>
+             <iconset theme="list-add"/>
             </property>
            </widget>
           </item>
@@ -280,8 +286,7 @@
              <string>Person löschen</string>
             </property>
             <property name="icon">
-             <iconset theme="list-remove">
-              <normaloff>.</normaloff>.</iconset>
+             <iconset theme="list-remove"/>
             </property>
            </widget>
           </item>
@@ -299,7 +304,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>30</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMedienverleih">
@@ -350,8 +355,7 @@
   </action>
   <action name="actionBeenden">
    <property name="icon">
-    <iconset theme="application-exit">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="application-exit"/>
    </property>
    <property name="text">
     <string>&amp;Beenden</string>

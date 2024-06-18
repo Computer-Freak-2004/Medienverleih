@@ -20,8 +20,8 @@ public:
 
 private slots:
     void on_AddNewLendButton_clicked();
-    void acceptSlot();
-    void rejectSlot();
+    void LendacceptSlot();
+    void LendrejectSlot();
     void on_DeleteLendButton_clicked();
     void on_SaveLendTableButton_clicked();
 
@@ -46,6 +46,8 @@ private slots:
     void on_actionDark_Theme_triggered();
 
     void on_action_ber_triggered();
+
+    void AboutacceptSlot();
 
 private:
     Ui::MainWindow *ui;

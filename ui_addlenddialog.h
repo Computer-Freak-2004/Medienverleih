@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'addlenddialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.14
+** Created by: Qt User Interface Compiler version 5.15.12
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -73,6 +73,7 @@ public:
         PersonTableWidget = new QTableWidget(PersonTab);
         PersonTableWidget->setObjectName(QString::fromUtf8("PersonTableWidget"));
         PersonTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        PersonTableWidget->setAlternatingRowColors(true);
         PersonTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 
         verticalLayout_5->addWidget(PersonTableWidget);
@@ -105,6 +106,7 @@ public:
         CDTableWidget = new QTableWidget(CDTab);
         CDTableWidget->setObjectName(QString::fromUtf8("CDTableWidget"));
         CDTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        CDTableWidget->setAlternatingRowColors(true);
         CDTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 
         verticalLayout_3->addWidget(CDTableWidget);

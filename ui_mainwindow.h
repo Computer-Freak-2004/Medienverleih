@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.14
+** Created by: Qt User Interface Compiler version 5.15.12
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -83,20 +83,17 @@ public:
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(1280, 720);
         MainWindow->setCursor(QCursor(Qt::ArrowCursor));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8("icon_32.png"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         action_ffnen = new QAction(MainWindow);
         action_ffnen->setObjectName(QString::fromUtf8("action_ffnen"));
         actionSpeichern = new QAction(MainWindow);
         actionSpeichern->setObjectName(QString::fromUtf8("actionSpeichern"));
         actionBeenden = new QAction(MainWindow);
         actionBeenden->setObjectName(QString::fromUtf8("actionBeenden"));
-        QIcon icon;
-        QString iconThemeName = QString::fromUtf8("application-exit");
-        if (QIcon::hasThemeIcon(iconThemeName)) {
-            icon = QIcon::fromTheme(iconThemeName);
-        } else {
-            icon.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
-        }
-        actionBeenden->setIcon(icon);
+        QIcon icon1(QIcon::fromTheme(QString::fromUtf8("application-exit")));
+        actionBeenden->setIcon(icon1);
         action_ber = new QAction(MainWindow);
         action_ber->setObjectName(QString::fromUtf8("action_ber"));
         actionDefault_Theme = new QAction(MainWindow);
@@ -118,21 +115,16 @@ public:
         verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
         LendTableWidget = new QTableWidget(AusleiheTab);
         LendTableWidget->setObjectName(QString::fromUtf8("LendTableWidget"));
-        LendTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-        LendTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+        LendTableWidget->setEditTriggers(QAbstractItemView::EditTrigger::NoEditTriggers);
+        LendTableWidget->setAlternatingRowColors(true);
+        LendTableWidget->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 
         verticalLayout_8->addWidget(LendTableWidget);
 
         SaveLendTableButton = new QPushButton(AusleiheTab);
         SaveLendTableButton->setObjectName(QString::fromUtf8("SaveLendTableButton"));
-        QIcon icon1;
-        iconThemeName = QString::fromUtf8("document-save");
-        if (QIcon::hasThemeIcon(iconThemeName)) {
-            icon1 = QIcon::fromTheme(iconThemeName);
-        } else {
-            icon1.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
-        }
-        SaveLendTableButton->setIcon(icon1);
+        QIcon icon2(QIcon::fromTheme(QString::fromUtf8("document-save")));
+        SaveLendTableButton->setIcon(icon2);
 
         verticalLayout_8->addWidget(SaveLendTableButton);
 
@@ -140,27 +132,15 @@ public:
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         AddNewLendButton = new QPushButton(AusleiheTab);
         AddNewLendButton->setObjectName(QString::fromUtf8("AddNewLendButton"));
-        QIcon icon2;
-        iconThemeName = QString::fromUtf8("list-add");
-        if (QIcon::hasThemeIcon(iconThemeName)) {
-            icon2 = QIcon::fromTheme(iconThemeName);
-        } else {
-            icon2.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
-        }
-        AddNewLendButton->setIcon(icon2);
+        QIcon icon3(QIcon::fromTheme(QString::fromUtf8("list-add")));
+        AddNewLendButton->setIcon(icon3);
 
         horizontalLayout_2->addWidget(AddNewLendButton);
 
         DeleteLendButton = new QPushButton(AusleiheTab);
         DeleteLendButton->setObjectName(QString::fromUtf8("DeleteLendButton"));
-        QIcon icon3;
-        iconThemeName = QString::fromUtf8("list-remove");
-        if (QIcon::hasThemeIcon(iconThemeName)) {
-            icon3 = QIcon::fromTheme(iconThemeName);
-        } else {
-            icon3.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
-        }
-        DeleteLendButton->setIcon(icon3);
+        QIcon icon4(QIcon::fromTheme(QString::fromUtf8("list-remove")));
+        DeleteLendButton->setIcon(icon4);
 
         horizontalLayout_2->addWidget(DeleteLendButton);
 
@@ -182,12 +162,13 @@ public:
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         BookTableWidget = new QTableWidget(BookTab);
         BookTableWidget->setObjectName(QString::fromUtf8("BookTableWidget"));
+        BookTableWidget->setAlternatingRowColors(true);
 
         verticalLayout_5->addWidget(BookTableWidget);
 
         SaveBookTableButton = new QPushButton(BookTab);
         SaveBookTableButton->setObjectName(QString::fromUtf8("SaveBookTableButton"));
-        SaveBookTableButton->setIcon(icon1);
+        SaveBookTableButton->setIcon(icon2);
 
         verticalLayout_5->addWidget(SaveBookTableButton);
 
@@ -195,13 +176,13 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         AddBookButton = new QPushButton(BookTab);
         AddBookButton->setObjectName(QString::fromUtf8("AddBookButton"));
-        AddBookButton->setIcon(icon2);
+        AddBookButton->setIcon(icon3);
 
         horizontalLayout_3->addWidget(AddBookButton);
 
         DeleteBookButton = new QPushButton(BookTab);
         DeleteBookButton->setObjectName(QString::fromUtf8("DeleteBookButton"));
-        DeleteBookButton->setIcon(icon3);
+        DeleteBookButton->setIcon(icon4);
 
         horizontalLayout_3->addWidget(DeleteBookButton);
 
@@ -215,12 +196,13 @@ public:
         verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
         CDTableWidget = new QTableWidget(CDTab);
         CDTableWidget->setObjectName(QString::fromUtf8("CDTableWidget"));
+        CDTableWidget->setAlternatingRowColors(true);
 
         verticalLayout_6->addWidget(CDTableWidget);
 
         SaveCDTableButton = new QPushButton(CDTab);
         SaveCDTableButton->setObjectName(QString::fromUtf8("SaveCDTableButton"));
-        SaveCDTableButton->setIcon(icon1);
+        SaveCDTableButton->setIcon(icon2);
 
         verticalLayout_6->addWidget(SaveCDTableButton);
 
@@ -228,7 +210,7 @@ public:
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         AddCDButton = new QPushButton(CDTab);
         AddCDButton->setObjectName(QString::fromUtf8("AddCDButton"));
-        AddCDButton->setIcon(icon2);
+        AddCDButton->setIcon(icon3);
         AddCDButton->setCheckable(false);
         AddCDButton->setAutoRepeatDelay(299);
 
@@ -236,7 +218,7 @@ public:
 
         DeleteCDButton = new QPushButton(CDTab);
         DeleteCDButton->setObjectName(QString::fromUtf8("DeleteCDButton"));
-        DeleteCDButton->setIcon(icon3);
+        DeleteCDButton->setIcon(icon4);
 
         horizontalLayout_4->addWidget(DeleteCDButton);
 
@@ -257,12 +239,13 @@ public:
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         PersonTableWidget = new QTableWidget(PersonenTab);
         PersonTableWidget->setObjectName(QString::fromUtf8("PersonTableWidget"));
+        PersonTableWidget->setAlternatingRowColors(true);
 
         verticalLayout_3->addWidget(PersonTableWidget);
 
         SavePersonTableButton = new QPushButton(PersonenTab);
         SavePersonTableButton->setObjectName(QString::fromUtf8("SavePersonTableButton"));
-        SavePersonTableButton->setIcon(icon1);
+        SavePersonTableButton->setIcon(icon2);
 
         verticalLayout_3->addWidget(SavePersonTableButton);
 
@@ -270,13 +253,13 @@ public:
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         AddPersonButton = new QPushButton(PersonenTab);
         AddPersonButton->setObjectName(QString::fromUtf8("AddPersonButton"));
-        AddPersonButton->setIcon(icon2);
+        AddPersonButton->setIcon(icon3);
 
         horizontalLayout->addWidget(AddPersonButton);
 
         DeletePersonButton = new QPushButton(PersonenTab);
         DeletePersonButton->setObjectName(QString::fromUtf8("DeletePersonButton"));
-        DeletePersonButton->setIcon(icon3);
+        DeletePersonButton->setIcon(icon4);
 
         horizontalLayout->addWidget(DeletePersonButton);
 
@@ -290,7 +273,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1280, 30));
+        menubar->setGeometry(QRect(0, 0, 1280, 20));
         menuMedienverleih = new QMenu(menubar);
         menuMedienverleih->setObjectName(QString::fromUtf8("menuMedienverleih"));
         menuHilfe = new QMenu(menubar);
@@ -316,7 +299,7 @@ public:
         retranslateUi(MainWindow);
 
         MainTabWidget->setCurrentIndex(0);
-        MediaTypeTab->setCurrentIndex(1);
+        MediaTypeTab->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -324,7 +307,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Medienverleih 0.5", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Medienverleih", nullptr));
         action_ffnen->setText(QCoreApplication::translate("MainWindow", "&\303\226ffnen", nullptr));
         actionSpeichern->setText(QCoreApplication::translate("MainWindow", "&Speichern", nullptr));
         actionBeenden->setText(QCoreApplication::translate("MainWindow", "&Beenden", nullptr));

@@ -20,7 +20,7 @@ int MediaType = 0; //0= Book, 1=CD
 int BookRow =-1;
 int CDRow = -1;
 
-QString Ver = "0.7";
+QString Ver = "0.8";
 
 int main(int argc, char *argv[]){
     QApplication a(argc, argv);
