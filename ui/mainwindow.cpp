@@ -139,6 +139,7 @@ MainWindow::~MainWindow(){
 // ========= AUSLEIHE =========
 void MainWindow::on_AddNewLendButton_clicked(){
     AddLendDialog *dialog = new AddLendDialog(this);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
     // Funktionen verbinden, wenn OK, Abbrechen gedrückt
     connect(dialog, &QDialog::accepted, this, &MainWindow::LendacceptSlot);
     connect(dialog, &QDialog::rejected, this, &MainWindow::LendrejectSlot);
@@ -147,6 +148,7 @@ void MainWindow::on_AddNewLendButton_clicked(){
 
 void MainWindow::LendacceptSlot(){ // Dialog: OK gedrückt
     ManageLend::Lendaccept(ui);
+
 }
 
 void MainWindow::LendrejectSlot(){ // Dialog: Abbrechen gedrückt
@@ -274,6 +276,7 @@ void MainWindow::on_actionDark_Theme_triggered(){
 
 void MainWindow::on_action_ber_triggered(){
     AboutDialog *dialog = new AboutDialog(this);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
     // Funktionen verbinden, wenn OK, Abbrechen gedrückt
     connect(dialog, &QDialog::accepted, this, &MainWindow::AboutacceptSlot);
     dialog->show();
