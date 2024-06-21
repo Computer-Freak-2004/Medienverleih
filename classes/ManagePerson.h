@@ -1,3 +1,6 @@
+#ifndef MANAGEPERSON_H
+#define MANAGEPERSON_H
+
 using namespace std;
 
 namespace Ui {
@@ -15,3 +18,5 @@ public:
     static void LoadPersonTable(Ui::AddLendDialog *ui);
 
 };
+
+#endif //MANAGEPERSON_H

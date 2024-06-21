@@ -1,3 +1,6 @@
+#ifndef MANAGEBOOK_H
+#define MANAGEBOOK_H
+
 using namespace std;
 
 namespace Ui {
@@ -15,3 +18,5 @@ public:
     static void LoadBookTable(Ui::AddLendDialog *ui);
 
 };
+
+#endif //MANAGEBOOK_H

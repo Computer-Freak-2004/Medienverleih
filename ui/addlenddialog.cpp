@@ -24,7 +24,7 @@ AddLendDialog::AddLendDialog(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // ========== Person Widget konfig. + Liste laden ==========
+    // Person Widget konfig. + Liste laden
     QStringList PersonCols({"Person-Nr", "Name", "Adresse", "Alter", "Telefonr."});
     ui->PersonTableWidget->setColumnCount(PersonCols.length());
     ui->PersonTableWidget->setHorizontalHeaderLabels(PersonCols);
@@ -32,7 +32,7 @@ AddLendDialog::AddLendDialog(QWidget *parent)
 
     ManagePerson::LoadPersonTable(ui);
 
-    // ========== Bücher Widget konfig. + Liste laden ==========
+    // Bücher Widget konfig. + Liste laden
     QStringList BookCols({"Buch-Nr", "Titel", "Autor", "Jahr", "Seiten", "Verlag"});
     ui->BookTableWidget->setColumnCount(BookCols.length());
     ui->BookTableWidget->setHorizontalHeaderLabels(BookCols);
@@ -40,7 +40,7 @@ AddLendDialog::AddLendDialog(QWidget *parent)
 
     ManageBook::LoadBookTable(ui);
 
-    // ========== CD Widget konfig. + Liste laden ==========
+    // CD Widget konfig. + Liste laden
     QStringList CDCols({"CD-Nr", "Titel", "Autor", "Jahr", "Dauer (min)", "Genre", "Verlag"});
     ui->CDTableWidget->setColumnCount(CDCols.length());
     ui->CDTableWidget->setHorizontalHeaderLabels(CDCols);
@@ -48,10 +48,9 @@ AddLendDialog::AddLendDialog(QWidget *parent)
 
     ManageCD::LoadCDTable(ui);
 
-    // Icon setzen
-    QString AppDir = QCoreApplication::applicationDirPath();
-    QIcon icon(AppDir + "/ui/icon.png");
-    setWindowIcon(icon);
+    #ifdef Q_OS_WIN
+    this->setWindowIcon(QIcon(":WindowsIcons/Add.png"));
+    #endif
 }
 
 AddLendDialog::~AddLendDialog(){

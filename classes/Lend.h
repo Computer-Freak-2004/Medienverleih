@@ -1,4 +1,7 @@
 // Ausleihe hat: Ausleihnummer, Personennr, Pesonenname, Mediennummer, Medientitel, Medientyp, Ausleihdatum
+#ifndef LEND_H
+#define LEND_H
+
 #include <QString>
 #include <QDebug>
 using namespace std;
@@ -33,3 +36,5 @@ private:
     QString MediaType;
     QString LendDate;
 };
+
+#endif // LEND_H

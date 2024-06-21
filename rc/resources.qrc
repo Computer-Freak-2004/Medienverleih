@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/ProgIcons">
+        <file>icon.png</file>
+        <file>icon_32.png</file>
+    </qresource>
+    <qresource prefix="/WindowsIcons">
+        <file>Add.png</file>
+        <file>Cancel.png</file>
+        <file>Exit.png</file>
+        <file>OK.png</file>
+        <file>Open.png</file>
+        <file>Remove.png</file>
+        <file>Save.png</file>
+        <file>Info.png</file>
+    </qresource>
+</RCC>

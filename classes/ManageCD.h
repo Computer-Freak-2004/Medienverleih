@@ -1,3 +1,6 @@
+#ifndef MANAGECD_H
+#define MANAGECD_H
+
 using namespace std;
 
 namespace Ui {
@@ -15,3 +18,5 @@ public:
     static void LoadCDTable(Ui::AddLendDialog *ui);
 
 };
+
+#endif //MANAGECD_H

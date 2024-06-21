@@ -17,8 +17,8 @@
    <string>Medienverleih</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>icon_32.png</normaloff>icon_32.png</iconset>
+   <iconset resource="../rc/resources.qrc">
+    <normaloff>:/ProgIcons/icon_32.png</normaloff>:/ProgIcons/icon_32.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -35,14 +35,23 @@
         <item>
          <widget class="QTableWidget" name="LendTableWidget">
           <property name="editTriggers">
-           <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="dragEnabled">
+           <bool>false</bool>
           </property>
           <property name="alternatingRowColors">
            <bool>true</bool>
           </property>
           <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+           <enum>QAbstractItemView::SelectRows</enum>
           </property>
+          <property name="sortingEnabled">
+           <bool>false</bool>
+          </property>
+          <attribute name="horizontalHeaderCascadingSectionResizes">
+           <bool>false</bool>
+          </attribute>
          </widget>
         </item>
         <item>
@@ -304,7 +313,7 @@
      <x>0</x>
      <y>0</y>
      <width>1280</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMedienverleih">
@@ -344,13 +353,34 @@
   </widget>
   <widget class="QStatusBar" name="MainStatusbar"/>
   <action name="action_ffnen">
+   <property name="icon">
+    <iconset theme="document-open-folder"/>
+   </property>
    <property name="text">
-    <string>&amp;Öffnen</string>
+    <string>&amp;Laden</string>
+   </property>
+   <property name="toolTip">
+    <string>Laden</string>
+   </property>
+   <property name="statusTip">
+    <string>Lädt ein oder mehrere Listen von Datei(en).</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="actionSpeichern">
+   <property name="icon">
+    <iconset theme="document-save"/>
+   </property>
    <property name="text">
     <string>&amp;Speichern</string>
+   </property>
+   <property name="statusTip">
+    <string>Speichert ein oder mehrere Listen in Datei(en).</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actionBeenden">
@@ -363,13 +393,22 @@
    <property name="statusTip">
     <string>Beendet das Programm.</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
   </action>
   <action name="action_ber">
+   <property name="icon">
+    <iconset theme="help-about"/>
+   </property>
    <property name="text">
     <string>&amp;Über...</string>
    </property>
    <property name="statusTip">
     <string>Zeigt einen Dialog mit Information über dieses Programm an.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionDefault_Theme">
@@ -385,6 +424,9 @@
    <property name="statusTip">
     <string>Setzt das GUI-Thema auf den Standard zurück.</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
   </action>
   <action name="actionDark_Theme">
    <property name="checkable">
@@ -396,8 +438,13 @@
    <property name="statusTip">
     <string>Setzt das GUI-Thema auf ein dunkles Thema.</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+T</string>
+   </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../rc/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

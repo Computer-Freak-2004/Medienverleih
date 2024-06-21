@@ -1,3 +1,6 @@
+#ifndef MANAGELEND_H
+#define MANAGELEND_H
+
 using namespace std;
 
 namespace Ui {
@@ -14,3 +17,5 @@ public:
     static void LoadLendTable(Ui::MainWindow *ui);
 
 };
+
+#endif //MANAGELEND_H

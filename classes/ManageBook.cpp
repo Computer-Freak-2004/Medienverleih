@@ -1,9 +1,8 @@
-#ifndef MANAGEBOOK_H
-#define MANAGEBOOK_H
 #include "ManageBook.h"
 #include "Book.h"
 #include "../ui_mainwindow.h"
 #include "../ui_addlenddialog.h"
+#include "classes/Lend.h"
 
 #include <QTableWidget>
 #include <QMessageBox>
@@ -13,15 +12,17 @@
 #include <QList>
 #include <QDate>
 
+extern QList<Lend> LendList;
 extern QList<Book> BookList;
 
 void ManageBook::AddBook(Ui::MainWindow *ui){
     // Neue Zeile hinzufügen
     int newRow = ui->BookTableWidget->rowCount();
     ui->BookTableWidget->insertRow(newRow);
+    ui->BookTableWidget->selectRow(newRow);
 
     // initialisieren
-    for (int i=0; i < 5; i++){ // Spalten
+    for (int i=0; i < 6; i++){ // Spalten
         QTableWidgetItem *newItem = new QTableWidgetItem("");
         ui->BookTableWidget->setItem(newRow, i, newItem);
     }
@@ -33,22 +34,44 @@ void ManageBook::DeleteBook(Ui::MainWindow *ui){
 
     if (currentRow == -1){
         QMessageBox::warning(nullptr, "Buch löschen", "Keine Zeile zum Löschen ausgewählt!");
+        return;
     }
+
+    // Ausgeliehen?
+    if (!(currentRow >= BookList.length())){ // Segfault verhindern
+        // Ausgewähltes Buch
+        int BookNumber = ui->BookTableWidget->item(currentRow, 0)->text().toInt();
+        QString BookTitle = ui->BookTableWidget->item(currentRow, 1)->text();
+
+        qDebug() << "Ausgwähltes Buch: " << BookNumber << "|" << BookTitle;
+
+        for (int i=0; i < LendList.length(); i++){
+            Lend lend = LendList[i];
+            int LendNumber = lend.getMediaNumber();
+            QString LendTitle = lend.getMediaTitle();
+
+            qDebug() << "Aktuelle Lend: " << LendNumber << "|" << LendTitle;
+
+            if ((BookNumber == LendNumber) && (BookTitle == LendTitle)){
+                QMessageBox::critical(nullptr, "Buch löschen", "Dieses Buch ist noch ausgeliehen!");
+                return;
+            }
+
+        }
+    }
+
     ui->BookTableWidget->removeRow(currentRow);
+    ui->BookTableWidget->selectRow(currentRow - 1);
 }
 
 void ManageBook::SaveBookTable(Ui::MainWindow *ui){
     int Rows = ui->BookTableWidget->rowCount();
-    if (Rows < 1){
-        QMessageBox::warning(nullptr, "Bücher speichern", "Tabelle leer!");
-        return;
-    }
 
     QList<Book> TempBookList = BookList;
     // Liste löschen
     BookList.clear();
 
-    for (int i=0; i < ui->BookTableWidget->rowCount(); i++){ // Zeilen
+    for (int i=0; i < Rows; i++){ // Zeilen
         // Zellen leer? (Segfault verhindern ;)!)
         if (ui->BookTableWidget->item(i, 0)->text().isEmpty() ||
             ui->BookTableWidget->item(i, 1)->text().isEmpty() ||
@@ -58,6 +81,18 @@ void ManageBook::SaveBookTable(Ui::MainWindow *ui){
             ui->BookTableWidget->item(i, 5)->text().isEmpty()) {
             BookList = TempBookList;
             QMessageBox::warning(nullptr, "Bücher speichern", "Es gibt noch leere Zellen!");
+            return;
+        }
+
+        // Trennzeichen eingetragen?
+        if (ui->BookTableWidget->item(i, 0)->text().contains("|") ||
+            ui->BookTableWidget->item(i, 1)->text().contains("|") ||
+            ui->BookTableWidget->item(i, 2)->text().contains("|") ||
+            ui->BookTableWidget->item(i, 3)->text().contains("|") ||
+            ui->BookTableWidget->item(i, 4)->text().contains("|") ||
+            ui->BookTableWidget->item(i, 5)->text().contains("|")) {
+            BookList = TempBookList;
+            QMessageBox::warning(nullptr, "Bücher speichern", "Das Trennzeichen '|' ist nicht erlaubt!");
             return;
         }
 
@@ -133,7 +168,7 @@ void ManageBook::LoadBookTable(Ui::MainWindow *ui){
         // Book aus Liste laden
         Book NewBook = BookList[i];
 
-        // Variablen aus Person in TableWidget eintragen
+        // Variablen aus Book in TableWidget eintragen
         int number = NewBook.getNumber();
         QString NumberString = QString::number(number);
         QTableWidgetItem *newItem = new QTableWidgetItem(NumberString);
@@ -212,5 +247,3 @@ void ManageBook::LoadBookTable(Ui::AddLendDialog *ui){ // überladene Fkt.
         ui->BookTableWidget->setItem(i, 5, newItem);
     }
 }
-
-#endif //MANAGEBOOK_H

@@ -1,12 +1,15 @@
 #include "mainwindow.h"
 #include "../ui_mainwindow.h"
 #include "addlenddialog.h"
+#include "saveloaddialog.h"
 #include "aboutdialog.h"
 #include <QTableWidget>
 #include <QMessageBox>
 #include <QStyleFactory>
 #include <QActionGroup>
 #include <QStyle>
+#include <QCloseEvent>
+#include <QThread>
 #include <QApplication>
 #include <QDebug>
 #include <QList>
@@ -65,94 +68,83 @@ MainWindow::MainWindow(QWidget *parent)
     ui->LendTableWidget->setHorizontalHeaderLabels(lendCols);
     ui->LendTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    // Beispieldaten einfügen
+    #ifdef Q_OS_WIN
+    ui->AddNewLendButton->setIcon(QIcon(":WindowsIcons/Add.png"));
+    ui->DeleteLendButton->setIcon(QIcon(":WindowsIcons/Remove.png"));
+    ui->SaveLendTableButton->setIcon(QIcon(":WindowsIcons/Save.png"));
 
-    // Daten für Personen
-    QList<QList<QVariant>> personData = {
-        {1, "John Doe", "123 Elm Street", 30, "555-1234"},
-        {2, "Jane Smith", "456 Oak Avenue", 25, "555-5678"},
-        {3, "Emily Davis", "789 Pine Road", 28, "555-8765"}
-    };
+    ui->AddBookButton->setIcon(QIcon(":WindowsIcons/Add.png"));
+    ui->DeleteBookButton->setIcon(QIcon(":WindowsIcons/Remove.png"));
+    ui->SaveBookTableButton->setIcon(QIcon(":WindowsIcons/Save.png"));
 
-    // Personen hinzufügen
-    for (const QList<QVariant>& data : personData) {
-        Person person;
-        person.setNumber(data[0].toInt());
-        person.setName(data[1].toString());
-        person.setAddress(data[2].toString());
-        person.setAge(data[3].toInt());
-        person.setPhoneNumber(data[4].toString());
-        PersonList.append(person);
-    }
+    ui->AddCDButton->setIcon(QIcon(":WindowsIcons/Add.png"));
+    ui->DeleteCDButton->setIcon(QIcon(":WindowsIcons/Remove.png"));
+    ui->SaveCDTableButton->setIcon(QIcon(":WindowsIcons/Save.png"));
 
-    // Daten für Bücher
-    QList<QList<QVariant>> bookData = {
-        {101, "C++ Programming", "Bjarne Stroustrup", 2013, 1366, "Addison-Wesley"},
-        {102, "Effective Modern C++", "Scott Meyers", 2014, 334, "O'Reilly Media"},
-        {103, "Clean Code", "Robert C. Martin", 2008, 464, "Prentice Hall"}
-    };
+    ui->AddPersonButton->setIcon(QIcon(":WindowsIcons/Add.png"));
+    ui->DeletePersonButton->setIcon(QIcon(":WindowsIcons/Remove.png"));
+    ui->SavePersonTableButton->setIcon(QIcon(":WindowsIcons/Save.png"));
 
-    // Bücher hinzufügen
-    for (const QList<QVariant>& data : bookData) {
-        Book book;
-        book.setNumber(data[0].toInt());
-        book.setTitle(data[1].toString());
-        book.setAuthor(data[2].toString());
-        book.setYear(data[3].toInt());
-        book.setPages(data[4].toInt());
-        book.setPublisher(data[5].toString());
-        BookList.append(book);
-    }
+    ui->action_ffnen->setIcon(QIcon(":WindowsIcons/Open.png"));
+    ui->actionSpeichern->setIcon(QIcon(":WindowsIcons/Save.png"));
+    ui->actionBeenden->setIcon(QIcon(":WindowsIcons/Exit.png"));
+    ui->action_ber->setIcon(QIcon(":WindowsIcons/Info.png"));
 
-    // Daten für CDs
-    QList<QList<QVariant>> cdData = {
-        {201, "The Dark Side of the Moon", "Pink Floyd", 1973, 42, "Progressive Rock", "Harvest Records"},
-        {202, "Thriller", "Michael Jackson", 1982, 42, "Pop", "Epic Records"},
-        {203, "Back in Black", "AC/DC", 1980, 41, "Hard Rock", "Albert/Atlantic"}
-    };
 
-    // CDs hinzufügen
-    for (const QList<QVariant>& data : cdData) {
-        CD cd;
-        cd.setNumber(data[0].toInt());
-        cd.setTitle(data[1].toString());
-        cd.setAuthor(data[2].toString());
-        cd.setYear(data[3].toInt());
-        cd.setDuration(data[4].toInt());
-        cd.setGenre(data[5].toString());
-        cd.setPublisher(data[6].toString());
-        CDList.append(cd);
-    }
-
-    // Icon setzen
-    QString AppDir = QCoreApplication::applicationDirPath();
-    QIcon icon(AppDir + "/ui/icon.png");
-    setWindowIcon(icon);
-
-    ui->MainStatusbar->showMessage("Bereit");
+   #endif
 }
 
 MainWindow::~MainWindow(){
     delete ui;
 }
 
+int MainWindow::closeAsk(QCloseEvent *event){
+    QMessageBox::StandardButton AskBox = QMessageBox::question( this, "Medienverleih",
+                                                               tr("Listen vor dem Beenden speichern?\n"),
+                                                               QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes);
+    if (AskBox == QMessageBox::Yes) {
+        ManageLend::SaveLendTable(ui);
+        ManageBook::SaveBookTable(ui);
+        ManageCD::SaveCDTable(ui);
+        ManagePerson::SavePersonTable(ui);
+        SaveLoadDialog *dialog = new SaveLoadDialog(this);
+        dialog->setAttribute(Qt::WA_DeleteOnClose);
+        dialog->setWindowTitle("Listen speichern");
+
+        int result = dialog->exec();
+
+        if (result == QDialog::Accepted || result == QDialog::Rejected) {
+            event->accept(); // Hauptfenster schließen akzeptieren
+            return 1;
+        }
+    }
+    else if (AskBox == QMessageBox::No) {
+        event->accept();
+        return 1;
+    }
+    else if (AskBox == QMessageBox::Cancel) {
+        event->ignore();
+        return 0;
+    }
+    return 0;
+}
+
+void MainWindow::closeEvent (QCloseEvent *event){
+    closeAsk(event);
+}
+
 // ========= AUSLEIHE =========
 void MainWindow::on_AddNewLendButton_clicked(){
     AddLendDialog *dialog = new AddLendDialog(this);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
-    // Funktionen verbinden, wenn OK, Abbrechen gedrückt
+    // Funktionen verbinden, wenn OK gedrückt
     connect(dialog, &QDialog::accepted, this, &MainWindow::LendacceptSlot);
-    connect(dialog, &QDialog::rejected, this, &MainWindow::LendrejectSlot);
     dialog->show();
 }
 
 void MainWindow::LendacceptSlot(){ // Dialog: OK gedrückt
     ManageLend::Lendaccept(ui);
 
-}
-
-void MainWindow::LendrejectSlot(){ // Dialog: Abbrechen gedrückt
-    // Do nothing
 }
 
 void MainWindow::on_DeleteLendButton_clicked(){
@@ -206,9 +198,8 @@ void MainWindow::on_SaveCDTableButton_clicked(){
     ManageCD::SaveCDTable(ui);
 }
 
-
-void MainWindow::on_MainTabWidget_currentChanged(int index) // bei Tabwechsel richtige Liste laden
-{
+// ======= TABWECHSEL ==========
+void MainWindow::on_MainTabWidget_currentChanged(int index){ // bei Tabwechsel richtige Liste laden
     if (index == 0){ // Ausleihe
         ManageLend::LoadLendTable(ui);
 
@@ -218,7 +209,6 @@ void MainWindow::on_MainTabWidget_currentChanged(int index) // bei Tabwechsel ri
         // Buch
         ManageBook::LoadBookTable(ui);
 
-
         // CD
         ManageCD::LoadCDTable(ui);
     }
@@ -227,8 +217,47 @@ void MainWindow::on_MainTabWidget_currentChanged(int index) // bei Tabwechsel ri
     }
 }
 
+// ======= MENÜLEISTE ========
+void MainWindow::on_action_ffnen_triggered(){
+    ManageLend::SaveLendTable(ui);
+    ManageBook::SaveBookTable(ui);
+    ManageCD::SaveCDTable(ui);
+    ManagePerson::SavePersonTable(ui);
+
+    SaveLoadDialog *dialog = new SaveLoadDialog(this);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->setWindowTitle("Listen laden");
+    // Funktionen verbinden, wenn OK gedrückt
+    connect(dialog, &QDialog::accepted, this, &MainWindow::SaveacceptSlot);
+    dialog->show();
+}
+
+void MainWindow::on_actionSpeichern_triggered(){
+    ManageLend::SaveLendTable(ui);
+    ManageBook::SaveBookTable(ui);
+    ManageCD::SaveCDTable(ui);
+    ManagePerson::SavePersonTable(ui);
+    SaveLoadDialog *dialog = new SaveLoadDialog(this);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->setWindowTitle("Listen speichern");
+    // Funktionen verbinden, wenn OK gedrückt
+    connect(dialog, &QDialog::accepted, this, &MainWindow::SaveacceptSlot);
+    dialog->show();
+}
+
+void MainWindow::SaveacceptSlot(){
+    ManageLend::LoadLendTable(ui);
+    ManageBook::LoadBookTable(ui);
+    ManageCD::LoadCDTable(ui);
+    ManagePerson::LoadPersonTable(ui);
+}
+
 void MainWindow::on_actionBeenden_triggered(){
-    exit(0);
+    QCloseEvent *event = new QCloseEvent();
+    int ret = closeAsk(event);
+    if (ret == 1){
+        exit(0);
+    }
 }
 
 // Themes eigentlich für Windows gedacht
@@ -251,7 +280,7 @@ void MainWindow::on_actionDark_Theme_triggered(){
     #else // Linux
     qApp->setStyle("gtk2");
     #endif
-    qApp->setStyle(QStyleFactory::create("defaultStyle"));
+    //qApp->setStyle(QStyleFactory::create("defaultStyle"));
 
     QPalette darkPalette;
     darkPalette.setColor(QPalette::Window, QColor(53,53,53));
@@ -277,11 +306,7 @@ void MainWindow::on_actionDark_Theme_triggered(){
 void MainWindow::on_action_ber_triggered(){
     AboutDialog *dialog = new AboutDialog(this);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
-    // Funktionen verbinden, wenn OK, Abbrechen gedrückt
-    connect(dialog, &QDialog::accepted, this, &MainWindow::AboutacceptSlot);
     dialog->show();
 }
 
-void MainWindow::AboutacceptSlot(){
-    // do nothing
-}
+

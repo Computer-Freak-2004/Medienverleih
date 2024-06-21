@@ -1,4 +1,7 @@
 // Person hat: Personnummer, Name, Adresse, Alter, Telefonnummer
+#ifndef PERSON_H
+#define PERSON_H
+
 #include <QString>
 #include <QDebug>
 using namespace std;
@@ -27,3 +30,5 @@ private:
     int Age;
     QString Phonenumber;
 };
+
+#endif // PERSON_H

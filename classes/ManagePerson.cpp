@@ -1,7 +1,6 @@
-#ifndef MANAGEPERSON_H
-#define MANAGEPERSON_H
 #include "ManagePerson.h"
 #include "Person.h"
+#include "Lend.h"
 #include "../ui_mainwindow.h"
 #include "../ui_addlenddialog.h"
 
@@ -14,11 +13,13 @@
 #include <QDate>
 
 extern QList<Person> PersonList;
+extern QList<Lend> LendList;
 
 void ManagePerson::AddPerson(Ui::MainWindow *ui){
     // Neue Zeile hinzufügen
     int newRow = ui->PersonTableWidget->rowCount();
     ui->PersonTableWidget->insertRow(newRow);
+    ui->PersonTableWidget->selectRow(newRow);
 
     // initialisieren
     for (int i=0; i < 5; i++){ // Spalten
@@ -33,22 +34,45 @@ void ManagePerson::DeletePerson(Ui::MainWindow *ui){
 
     if (currentRow == -1){
         QMessageBox::warning(nullptr, "Person löschen", "Keine Zeile zum Löschen ausgewählt!");
+        return;
     }
+
+    // Hat ausgeliehen?
+    if (!(currentRow >= PersonList.length())){ // Segfault verhindern
+        // Ausgewählte Person
+        int PersonNumber = ui->PersonTableWidget->item(currentRow, 0)->text().toInt();
+        QString PersonName = ui->PersonTableWidget->item(currentRow, 1)->text();
+
+        qDebug() << "Ausgwählte Person: " << PersonNumber << "|" << PersonName;
+
+        // durch Ausleihe iterieren
+        for (int i=0; i < LendList.length(); i++){
+            Lend lend = LendList[i];
+            int LendPersonNumber = lend.getPersonNumber();
+            QString LendPersonName = lend.getPersonName();
+
+            qDebug() << "Aktuelle Lend: " << LendPersonNumber << "|" << LendPersonName;
+
+            if ((PersonNumber == LendPersonNumber) && (PersonName == LendPersonName)){
+                QMessageBox::critical(nullptr, "Person löschen", "Diese Person hat noch etwas ausgeliehen!");
+                return;
+            }
+
+        }
+    }
+    
     ui->PersonTableWidget->removeRow(currentRow);
+    ui->PersonTableWidget->selectRow(currentRow - 1);
 }
 
 void ManagePerson::SavePersonTable(Ui::MainWindow *ui){
     int Rows = ui->PersonTableWidget->rowCount();
-    if (Rows < 1){
-        QMessageBox::warning(nullptr, "Personen speichern", "Tabelle leer!");
-        return;
-    }
 
     QList<Person> TempPersonList = PersonList;
     // Liste löschen
     PersonList.clear();
 
-    for (int i=0; i < ui->PersonTableWidget->rowCount(); i++){ // Zeilen
+    for (int i=0; i < Rows; i++){ // Zeilen
         // Zellen leer? (Segfault verhindern ;)!)
         if (ui->PersonTableWidget->item(i, 0)->text().isEmpty() ||
             ui->PersonTableWidget->item(i, 1)->text().isEmpty() ||
@@ -57,6 +81,17 @@ void ManagePerson::SavePersonTable(Ui::MainWindow *ui){
             ui->PersonTableWidget->item(i, 4)->text().isEmpty()) {
             PersonList = TempPersonList;
             QMessageBox::warning(nullptr, "Personen speichern", "Es gibt noch leere Zellen!");
+            return;
+        }
+
+        // Trennzeichen eingetragen?
+        if (ui->PersonTableWidget->item(i, 0)->text().contains("|") ||
+            ui->PersonTableWidget->item(i, 1)->text().contains("|") ||
+            ui->PersonTableWidget->item(i, 2)->text().contains("|") ||
+            ui->PersonTableWidget->item(i, 3)->text().contains("|") ||
+            ui->PersonTableWidget->item(i, 4)->text().contains("|")) {
+            PersonList = TempPersonList;
+            QMessageBox::warning(nullptr, "Personen speichern", "Das Trennzeichen '|' ist nicht erlaubt!");
             return;
         }
 
@@ -203,4 +238,3 @@ void ManagePerson::LoadPersonTable(Ui::AddLendDialog *ui){ // überladene Fkt.
         ui->PersonTableWidget->setItem(i, 4, newItem);
     }
 }
-#endif //MANAGEPERSON_H

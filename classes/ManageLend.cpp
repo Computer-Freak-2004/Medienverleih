@@ -1,5 +1,3 @@
-#ifndef MANAGELEND_H
-#define MANAGELEND_H
 #include "ManageLend.h"
 #include "Lend.h"
 #include "Book.h"
@@ -104,6 +102,7 @@ void ManageLend::Lendaccept(Ui::MainWindow *ui){
     qDebug() << "DateString: " << currentDateString;
     newItem = new QTableWidgetItem(currentDateString);
     ui->LendTableWidget->setItem(NewRow, 6, newItem);
+    ui->LendTableWidget->selectRow(NewRow);
 
     // Variablen zurücksetzen
     MediaType = 0;
@@ -121,20 +120,17 @@ void ManageLend::DeleteLend(Ui::MainWindow *ui){
         QMessageBox::warning(nullptr, "Zurückgeben", "Keine Zeile zum Zurückgeben ausgewählt!");
     }
     ui->LendTableWidget->removeRow(currentRow);
+    ui->LendTableWidget->selectRow(currentRow - 1);
 }
 
 void ManageLend::SaveLendTable(Ui::MainWindow *ui){
     int Rows = ui->LendTableWidget->rowCount();
-    if (Rows < 1){
-        QMessageBox::warning(nullptr, "Ausleihe speichern", "Tabelle leer!");
-        return;
-    }
 
     QList<Lend> TempLendList = LendList;
     // Liste löschen
     LendList.clear();
 
-    for (int i=0; i < ui->LendTableWidget->rowCount(); i++){ // Zeilen
+    for (int i=0; i < Rows; i++){ // Zeilen
         // hier sollte keine Fehlerbetrachtung nötig sein...
         Lend NewLend;
 
@@ -183,7 +179,7 @@ void ManageLend::LoadLendTable(Ui::MainWindow *ui){
         // Lend aus Liste laden
         Lend NewLend = LendList[i];
 
-        // Variablen aus Person in TableWidget eintragen
+        // Variablen aus Lend in TableWidget eintragen
         int number = NewLend.getNumber();
         QString NumberString = QString::number(number);
         QTableWidgetItem *newItem = new QTableWidgetItem(NumberString);
@@ -213,5 +209,3 @@ void ManageLend::LoadLendTable(Ui::MainWindow *ui){
         ui->LendTableWidget->setItem(i, 6, newItem);
     }
 }
-
-#endif //MANAGELEND_H

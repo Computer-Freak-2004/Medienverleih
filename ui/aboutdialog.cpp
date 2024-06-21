@@ -21,20 +21,38 @@ AboutDialog::AboutDialog(QWidget *parent)
 
     // Icon setzen
     QGraphicsScene * scene = new QGraphicsScene(0,0,64,64, ui->IconView);
-    scene->setBackgroundBrush(Qt::blue);
     ui->IconView->setScene(scene);
 
     QString AppDir = QCoreApplication::applicationDirPath();
-    QPixmap pixmap(AppDir + "/ui/icon.png");
-    pixmap = pixmap.scaled(64, 64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    if (!pixmap.isNull()) {
-        QGraphicsPixmapItem * pixmapItem = new QGraphicsPixmapItem(pixmap);
-        scene->addItem(pixmapItem);
+    QPixmap Pixmap(":/ProgIcons/icon.png");
+    Pixmap = Pixmap.scaled(64, 64, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+    if (!Pixmap.isNull()) {
+        QGraphicsPixmapItem * PixmapItem = new QGraphicsPixmapItem(Pixmap);
+        scene->addItem(PixmapItem);
         qDebug() << "Image loaded!";
     }
 
-    QIcon icon(AppDir + "/ui/icon.png");
-    setWindowIcon(icon);
+    QPalette palette = ui->AuthorLabel->palette();
+    QColor TextColor = palette.color(QPalette::WindowText);
+    qDebug() << "Text color:" << TextColor;
+    if (TextColor.redF() > 0.7 && TextColor.greenF() > 0.7 && TextColor.blueF() > 0.7){ // bei DarkMode Farben invertieren, wenn Text (fast) weiß
+        QImage image = Pixmap.toImage();
+        image.invertPixels();
+
+        QPixmap invertedPixmap = QPixmap::fromImage(image);
+
+        if (!Pixmap.isNull()) {
+            QGraphicsPixmapItem * pixmapItem = new QGraphicsPixmapItem(invertedPixmap);
+            scene->addItem(pixmapItem);
+            qDebug() << "Inverted Image loaded!";
+        }
+    }
+
+    #ifdef Q_OS_WIN
+    ui->AboutCloseButton->setIcon(QIcon(":WindowsIcons/OK.png"));
+    this->setWindowIcon(QIcon(":WindowsIcons/Info.png"));
+    #endif
 }
 
 AboutDialog::~AboutDialog(){
