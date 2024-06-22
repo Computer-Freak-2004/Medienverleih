@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QList>
+#include <QCloseEvent>
 #include "../classes/Person.h"
 #include "../classes/Book.h"
 #include "../classes/CD.h"
@@ -43,6 +44,8 @@ private slots:
     void on_SaveLoadOKAbortButtons_accepted();
 
     void on_SaveLoadOKAbortButtons_rejected();
+
+    void closeEvent(QCloseEvent* event);
 
 private:
     Ui::SaveLoadDialog *ui;

@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QList>
 #include <QMessageBox>
+#include <QCloseEvent>
 //#include <iostream>
 #include <fstream>
 
@@ -228,10 +229,10 @@ void SaveLoadDialog::on_PersonSelectPathButton_clicked(){
 
 void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
     // Dateipfade lesen
-    QString LendPath = ui->LendPathTextBox->text();
-    QString BookPath = ui->BookPathTextBox->text();
-    QString CDPath = ui->CDPathTextBox->text();
-    QString PersonPath = ui->PersonPathTextBox->text();
+    LendPath = ui->LendPathTextBox->text();
+    BookPath = ui->BookPathTextBox->text();
+    CDPath = ui->CDPathTextBox->text();
+    PersonPath = ui->PersonPathTextBox->text();
 
 
     if (this->windowTitle() == "Listen speichern"){ // zu speichernde Dateien erstellen (versuchen), da sonst immer ungültiger Dateipfad Fehler
@@ -273,6 +274,7 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
             std::remove(LendPath.toStdString().c_str()); // Datei löschen
 
             OutFileStream.open(LendPath.toStdString(), std::ios_base::app); //anhängen
+            OutFileStream << "LendList" << std::endl; // Headerdaten
 
             // Ausleihe Zeile für Zeile in Datei speichern
             for (int i=0; i< LendList.length(); i++){
@@ -287,6 +289,7 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
             std::remove(BookPath.toStdString().c_str()); // Datei löschen
 
             OutFileStream.open(BookPath.toStdString(), std::ios_base::app); //anhängen
+            OutFileStream << "BookList" << std::endl; // Headerdaten
 
             // Ausleihe Zeile für Zeile in Datei speichern
             for (int i=0; i< BookList.length(); i++){
@@ -301,6 +304,7 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
             std::remove(CDPath.toStdString().c_str()); // Datei löschen
 
             OutFileStream.open(CDPath.toStdString(), std::ios_base::app); //anhängen
+            OutFileStream << "CDList" << std::endl; // Headerdaten
 
             // Ausleihe Zeile für Zeile in Datei speichern
             for (int i=0; i< CDList.length(); i++){
@@ -315,6 +319,7 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
             std::remove(PersonPath.toStdString().c_str()); // Datei löschen
 
             OutFileStream.open(PersonPath.toStdString(), std::ios_base::app); //anhängen
+            OutFileStream << "PersonList" << std::endl; // Headerdaten
 
             // Ausleihe Zeile für Zeile in Datei speichern
             for (int i=0; i< PersonList.length(); i++){
@@ -332,17 +337,28 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
         QString QLine = "";
 
         std::ifstream InFileStream;
-        qDebug() << "HELLO";
 
         // AUSLEIHE
         if (LendPath != ""){
             Lend lend;
             InFileStream.open(LendPath.toStdString().c_str()); // Lesemodus
+            QList<Lend> TempLendList = LendList;
 
             LendList.clear();
+            int index = 0;
             while (std::getline(InFileStream, Line)){
+                index++;
                 QLine = QString::fromStdString(Line);
                 qDebug() << "ReadLine: " << QLine;
+                
+                if (index == 1 && QLine != "LendList"){ // Headerdaten überprüfen, Segfault verhindern
+                    QMessageBox::critical(nullptr, "Ausleihliste laden", "Die angebene Ausleihliste ist ungültig!");
+                    LendList = TempLendList;
+                    return;
+                }
+                else if (index == 1){ // sonst von vorne weitermachen
+                    continue;
+                }
                 lend = ReadLendDataString(QLine);
                 qDebug() << "ReadLendObj: ";
                 lend.PrintLend();
@@ -355,11 +371,22 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
         if (BookPath != ""){
             Book book;
             InFileStream.open(BookPath.toStdString()); // Lesemodus
+            QList<Book> TempBookList = BookList;
 
             BookList.clear();
+            int index = 0;
             while (std::getline(InFileStream, Line)){
+                index++;
                 QLine = QString::fromStdString(Line);
                 qDebug() << "ReadLine: " << QLine;
+                if (index == 1 && QLine != "BookList"){ // Headerdaten überprüfen, Segfault verhindern
+                    QMessageBox::critical(nullptr, "Bücherliste laden", "Die angebene Bücherliste ist ungültig!");
+                    BookList = TempBookList;
+                    return;
+                }
+                else if (index == 1){ // sonst von vorne weitermachen
+                    continue;
+                }
                 book = ReadBookDataString(QLine);
                 qDebug() << "ReadLendObj: ";
                 book.PrintBook();
@@ -372,11 +399,22 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
         if (CDPath != ""){
             CD cd;
             InFileStream.open(CDPath.toStdString()); // Lesemodus
+            QList<CD> TempCDList = CDList;
 
             CDList.clear();
+            int index = 0;
             while (std::getline(InFileStream, Line)){
+                index++;
                 QLine = QString::fromStdString(Line);
                 qDebug() << "ReadLine: " << QLine;
+                if (index == 1 && QLine != "CDList"){ // Headerdaten überprüfen, Segfault verhindern
+                    QMessageBox::critical(nullptr, "CD-Liste laden", "Die angebene CD-Liste ist ungültig!");
+                    CDList = TempCDList;
+                    return;
+                }
+                else if (index == 1){ // sonst von vorne weitermachen
+                    continue;
+                }
                 cd = ReadCDDataString(QLine);
                 qDebug() << "ReadLendObj: ";
                 cd.PrintCD();
@@ -389,11 +427,22 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
         if (PersonPath != ""){
             Person person;
             InFileStream.open(PersonPath.toStdString()); // Lesemodus
+            QList<Person> TempPersonList = PersonList;
 
             PersonList.clear();
+            int index = 0;
             while (std::getline(InFileStream, Line)){
+                index++;
                 QLine = QString::fromStdString(Line);
                 qDebug() << "ReadLine: " << QLine;
+                if (index == 1 && QLine != "PersonList"){ // Headerdaten überprüfen, Segfault verhindern
+                    QMessageBox::critical(nullptr, "Personenliste laden", "Die angebene Personenliste ist ungültig!");
+                    PersonList = TempPersonList;
+                    return;
+                }
+                else if (index == 1){ // sonst von vorne weitermachen
+                    continue;
+                }
                 person = ReadPersonDataString(QLine);
                 qDebug() << "ReadLendObj: ";
                 person.PrintPerson();
@@ -407,6 +456,20 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
 
 
 void SaveLoadDialog::on_SaveLoadOKAbortButtons_rejected(){
+    // Dateipfade lesen
+    LendPath = ui->LendPathTextBox->text();
+    BookPath = ui->BookPathTextBox->text();
+    CDPath = ui->CDPathTextBox->text();
+    PersonPath = ui->PersonPathTextBox->text();
     reject();
+}
+
+void SaveLoadDialog::closeEvent(QCloseEvent* event){
+    // Dateipfade lesen
+    LendPath = ui->LendPathTextBox->text();
+    BookPath = ui->BookPathTextBox->text();
+    CDPath = ui->CDPathTextBox->text();
+    PersonPath = ui->PersonPathTextBox->text();
+    event->accept();
 }
 

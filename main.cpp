@@ -48,7 +48,7 @@ int main(int argc, char *argv[]){
     qApp->setStyleSheet(""); // Reset the style sheet
     
     w.statusBar()->showMessage("Wilkommen zum Medienverleih!");
-    w.setWindowTitle("Medienverleih " + Ver + " (Buildtime: " + __DATE__ + " " + __TIME__ + ")");
+    w.setWindowTitle("Medienverleih " + Ver);
 
     w.show();
 
