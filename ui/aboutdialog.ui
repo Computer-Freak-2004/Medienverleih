@@ -234,7 +234,7 @@
    <item>
     <widget class="QLabel" name="DateLabel">
      <property name="text">
-      <string>Datum: 15.06. - 21.06.</string>
+      <string>Datum: 15.06. - 22.06.2024</string>
      </property>
     </widget>
    </item>

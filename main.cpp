@@ -8,6 +8,7 @@
 #include <QTranslator>
 #include <QLocale>
 #include <QLibraryInfo>
+#include <QFileInfo>
 #include "classes/Person.h"
 #include "classes/Book.h"
 #include "classes/CD.h"

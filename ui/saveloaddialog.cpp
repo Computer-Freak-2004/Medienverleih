@@ -273,13 +273,16 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
         if (LendPath != ""){
             std::remove(LendPath.toStdString().c_str()); // Datei löschen
 
+            OutFileStream.open(LendPath.toStdString(), std::ios_base::binary | std::ios_base::out ); // binär öffnen wegen Windows
+            OutFileStream << "LendList" << '\x0A'; // Headerdaten, kein endl, da Windows CR hinzufügt!!
+            OutFileStream.close();
+
             OutFileStream.open(LendPath.toStdString(), std::ios_base::app); //anhängen
-            OutFileStream << "LendList" << std::endl; // Headerdaten
 
             // Ausleihe Zeile für Zeile in Datei speichern
             for (int i=0; i< LendList.length(); i++){
                 Line = MakeLendDataString(i);
-                OutFileStream << Line.toStdString() << std::endl;
+                OutFileStream << Line.toStdString() << '\n';
             }
             OutFileStream.close();
         }
@@ -288,13 +291,16 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
         if (BookPath != ""){
             std::remove(BookPath.toStdString().c_str()); // Datei löschen
 
+            OutFileStream.open(BookPath.toStdString(), std::ios_base::binary | std::ios_base::out ); // binär öffnen wegen Windows
+            OutFileStream << "BookList" << '\x0A'; // Headerdaten, kein endl, da Windows CR hinzufügt!!
+            OutFileStream.close();
+
             OutFileStream.open(BookPath.toStdString(), std::ios_base::app); //anhängen
-            OutFileStream << "BookList" << std::endl; // Headerdaten
 
             // Ausleihe Zeile für Zeile in Datei speichern
             for (int i=0; i< BookList.length(); i++){
                 Line = MakeBookDataString(i);
-                OutFileStream << Line.toStdString() << std::endl;
+                OutFileStream << Line.toStdString() << '\n';
             }
             OutFileStream.close();
         }
@@ -303,13 +309,16 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
         if (CDPath != ""){
             std::remove(CDPath.toStdString().c_str()); // Datei löschen
 
+            OutFileStream.open(CDPath.toStdString(), std::ios_base::binary | std::ios_base::out ); // binär öffnen wegen Windows
+            OutFileStream << "CDList" << '\x0A'; // Headerdaten, kein endl, da Windows CR hinzufügt!!
+            OutFileStream.close();
+
             OutFileStream.open(CDPath.toStdString(), std::ios_base::app); //anhängen
-            OutFileStream << "CDList" << std::endl; // Headerdaten
 
             // Ausleihe Zeile für Zeile in Datei speichern
             for (int i=0; i< CDList.length(); i++){
                 Line = MakeCDDataString(i);
-                OutFileStream << Line.toStdString() << std::endl;
+                OutFileStream << Line.toStdString() << '\n';
             }
             OutFileStream.close();
         }
@@ -318,13 +327,16 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
         if (PersonPath != ""){
             std::remove(PersonPath.toStdString().c_str()); // Datei löschen
 
+            OutFileStream.open(PersonPath.toStdString(), std::ios_base::binary | std::ios_base::out ); // binär öffnen wegen Windows
+            OutFileStream << "PersonList" << '\x0A'; // Headerdaten, kein endl, da Windows CR hinzufügt!!
+            OutFileStream.close();
+
             OutFileStream.open(PersonPath.toStdString(), std::ios_base::app); //anhängen
-            OutFileStream << "PersonList" << std::endl; // Headerdaten
 
             // Ausleihe Zeile für Zeile in Datei speichern
             for (int i=0; i< PersonList.length(); i++){
                 Line = MakePersonDataString(i);
-                OutFileStream << Line.toStdString() << std::endl;
+                OutFileStream << Line.toStdString() << '\n';
             }
             OutFileStream.close();
         }
@@ -352,7 +364,7 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
                 qDebug() << "ReadLine: " << QLine;
                 
                 if (index == 1 && QLine != "LendList"){ // Headerdaten überprüfen, Segfault verhindern
-                    QMessageBox::critical(nullptr, "Ausleihliste laden", "Die angebene Ausleihliste ist ungültig!");
+                    QMessageBox::critical(nullptr, "Ausleihliste laden", "Die angegebene Ausleihliste ist ungültig!");
                     LendList = TempLendList;
                     return;
                 }
@@ -380,7 +392,7 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
                 QLine = QString::fromStdString(Line);
                 qDebug() << "ReadLine: " << QLine;
                 if (index == 1 && QLine != "BookList"){ // Headerdaten überprüfen, Segfault verhindern
-                    QMessageBox::critical(nullptr, "Bücherliste laden", "Die angebene Bücherliste ist ungültig!");
+                    QMessageBox::critical(nullptr, "Bücherliste laden", "Die angegebene Bücherliste ist ungültig!");
                     BookList = TempBookList;
                     return;
                 }
@@ -408,7 +420,7 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
                 QLine = QString::fromStdString(Line);
                 qDebug() << "ReadLine: " << QLine;
                 if (index == 1 && QLine != "CDList"){ // Headerdaten überprüfen, Segfault verhindern
-                    QMessageBox::critical(nullptr, "CD-Liste laden", "Die angebene CD-Liste ist ungültig!");
+                    QMessageBox::critical(nullptr, "CD-Liste laden", "Die angegebene CD-Liste ist ungültig!");
                     CDList = TempCDList;
                     return;
                 }
@@ -436,7 +448,7 @@ void SaveLoadDialog::on_SaveLoadOKAbortButtons_accepted(){
                 QLine = QString::fromStdString(Line);
                 qDebug() << "ReadLine: " << QLine;
                 if (index == 1 && QLine != "PersonList"){ // Headerdaten überprüfen, Segfault verhindern
-                    QMessageBox::critical(nullptr, "Personenliste laden", "Die angebene Personenliste ist ungültig!");
+                    QMessageBox::critical(nullptr, "Personenliste laden", "Die angegebene Personenliste ist ungültig!");
                     PersonList = TempPersonList;
                     return;
                 }
@@ -472,4 +484,3 @@ void SaveLoadDialog::closeEvent(QCloseEvent* event){
     PersonPath = ui->PersonPathTextBox->text();
     event->accept();
 }
-
