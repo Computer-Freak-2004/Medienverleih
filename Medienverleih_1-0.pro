@@ -14,7 +14,6 @@ TEMPLATE = app
 TARGET = Medienverleih_1-0
 QT += widgets
 INCLUDEPATH += .
-TRANSLATIONS += rc/qt_de.qm
 win32:RC_ICONS += rc/icon.ico
 
 # You can make your code fail to compile if you use deprecated APIs.
